@@ -1,6 +1,7 @@
-import { Poppins } from 'next/font/google';
+import { cn } from '@/lib/utils';
+import { Outfit } from 'next/font/google';
 import Image from 'next/image';
-const font = Poppins({
+const font = Outfit({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
 });
@@ -16,7 +17,12 @@ export function Logo() {
           width={150}
         />
       </div>
-      <div>Funding Opportunites America</div>
+      <div className={cn('flex flex-col items-center ', font.className)}>
+        <p className="text-xl font-semibold">Funding Opportunities America </p>
+        <p className="text-sm text-muted-foreground">
+          FINDING OPTIONS FOR YOUR OPTIMUM MORTGAGE !
+        </p>
+      </div>
     </div>
   );
 }

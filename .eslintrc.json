@@ -5,5 +5,10 @@
   },
   "rules": {
     "no-unused-vars": [1, { "args": "after-used", "argsIgnorePattern": "^_" }]
+  },
+  "env": {
+    "es2020": true,
+    "node": true
+    // ... other environments like "browser": true if applicable
   }
 }
