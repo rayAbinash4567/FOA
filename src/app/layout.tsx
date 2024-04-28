@@ -1,10 +1,17 @@
 import { ThemeProvider } from '@/components/ui/theme-provider';
 import { ClerkProvider } from '@clerk/nextjs';
-import { dark } from '@clerk/themes';
 import type { Metadata } from 'next';
-import { Outfit } from 'next/font/google';
+import { Inter, Outfit, Poppins } from 'next/font/google';
 import './globals.css';
 const outfit = Outfit({ subsets: ['latin'] });
+const poppins = Poppins({
+  weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
+});
+const inter = Inter({
+  weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
+});
 
 export const metadata: Metadata = {
   title: 'FOA - Funding Opportunities America',
@@ -17,16 +24,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider appearance={{ baseTheme: dark }}>
+    // provide dark theme to clerk
+    <ClerkProvider>
       <html lang="en">
-        <body className={outfit.className}>
-          <ThemeProvider
-            attribute="class"
-            forcedTheme="dark"
-            storageKey="gamehub-theme"
-          >
-            {children}
-          </ThemeProvider>
+        <body>
+          <ThemeProvider attribute="class">{children}</ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

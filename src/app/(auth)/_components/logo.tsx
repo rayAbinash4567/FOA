@@ -11,16 +11,17 @@ export function Logo() {
     <div className="flex flex-col items-center gap-y-4">
       <div className="bg-white  p-1">
         <Image
-          src="/foa-logo.jpeg"
+          src="/pp_mainlogo.png"
           alt="foa-alt-image"
           height={150}
           width={150}
         />
       </div>
       <div className={cn('flex flex-col items-center ', font.className)}>
-        <p className="text-xl font-semibold">Funding Opportunities America </p>
+        <p className="text-xl font-semibold">Pinnacle Partnerships </p>
         <p className="text-sm text-muted-foreground">
-          FINDING OPTIONS FOR YOUR OPTIMUM MORTGAGE !
+          Welcome to &quot;best in class&quot; real estate transactions and
+          investment service providers
         </p>
       </div>
     </div>
