@@ -235,7 +235,7 @@ export function NavMenu() {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger className='className="relative flex items-center justify-center   hover:text-primary"'>
+          <NavigationMenuTrigger className="relative flex items-center justify-center   hover:text-primary">
             Components
           </NavigationMenuTrigger>
           <NavigationMenuContent className="absolute mt-2.5 w-56 rounded-sm border !border-stroke bg-white shadow-default">

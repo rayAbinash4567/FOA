@@ -1,12 +1,15 @@
 'use client';
+import { useClerk } from '@clerk/clerk-react';
 import { useUser } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { isSignedIn, isLoaded, user } = useUser();
-
+  const { signOut } = useClerk();
+  const router = useRouter();
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
 
@@ -53,17 +56,24 @@ const DropdownUser = () => {
           </span>
         </span>
 
-        <span className="h-12 w-12 rounded-full">
-          <Image
-            width={112}
-            height={112}
-            src={'/images/user/user-01.png'}
-            style={{
-              width: 'auto',
-              height: 'auto',
-            }}
-            alt="User"
-          />
+        <span className="h-12 w-12">
+          {user?.imageUrl ? (
+            <Image
+              width={48} // Adjust width as needed
+              height={48} // Adjust height as needed
+              src={user?.imageUrl}
+              className="rounded-full" // Apply rounding to the image
+              alt="User"
+            />
+          ) : (
+            <Image
+              width={48} // Adjust width as needed
+              height={48} // Adjust height as needed
+              src={'/images/user/user-01.png'}
+              className="rounded-full" // Apply rounding to the image
+              alt="User"
+            />
+          )}
         </span>
 
         <svg
@@ -95,7 +105,7 @@ const DropdownUser = () => {
         <ul className="flex flex-col gap-5 border-b border-stroke px-6 py-7.5 dark:border-strokedark">
           <li>
             <Link
-              href="/profile"
+              href="/dashboard/profile"
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
             >
               <svg
@@ -120,7 +130,7 @@ const DropdownUser = () => {
           </li>
           <li>
             <Link
-              href="#"
+              href="/dashboard/contacts"
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
             >
               <svg
@@ -141,7 +151,7 @@ const DropdownUser = () => {
           </li>
           <li>
             <Link
-              href="/settings"
+              href="/dashboard/settings"
               className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
             >
               <svg
@@ -165,7 +175,10 @@ const DropdownUser = () => {
             </Link>
           </li>
         </ul>
-        <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+        <button
+          className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+          onClick={() => signOut(() => router.push('/'))}
+        >
           <svg
             className="fill-current"
             width="22"

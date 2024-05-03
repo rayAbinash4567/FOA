@@ -4,7 +4,6 @@ import DropdownMessage from '@/components/Header/DropdownMessage';
 import DropdownNotification from '@/components/Header/DropdownNotification';
 import DropdownUser from '@/components/Header/DropdownUser';
 import { useUser } from '@clerk/clerk-react';
-import { UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
 import { Button } from '../../../../../components/ui/button';
 import { Logo } from '../navbar/logo';
@@ -61,7 +60,6 @@ const Head = () => {
           </ul>
           {isSignedIn ? (
             <div className="w-2/4 h-2/4">
-              <UserButton afterSignOutUrl="/" />
               <DropdownUser />
             </div>
           ) : (
@@ -78,7 +76,6 @@ const Head = () => {
               </div>
             </div>
           )}
-          <DropdownUser />
         </div>
       </div>
     </header>
