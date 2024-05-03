@@ -1,10 +1,11 @@
 'use client';
+import { useUser } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const { isSignedIn, isLoaded, user } = useUser();
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
@@ -45,9 +46,11 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Thomas Anree
+            {isSignedIn ? user.fullName : 'Guest'}
           </span>
-          <span className="block text-xs">UX Designer</span>
+          <span className="block text-xs">
+            {isSignedIn ? user.username : 'Software Engineer'}
+          </span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
