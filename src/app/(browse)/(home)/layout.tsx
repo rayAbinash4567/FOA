@@ -9,7 +9,7 @@ export default function BrowseLayout({
     <div className="dark:bg-boxdark-2 dark:text-bodydark min-h-screen flex flex-col">
       {/* <Navbar /> */}
       <Head />
-      <div className="flex-grow overflow-auto  pt-12 dark:bg-boxdark-2 dark:text-bodydark ">
+      <div className="flex-grow overflow-auto   dark:bg-boxdark-2 dark:text-bodydark ">
         {children}
       </div>
     </div>

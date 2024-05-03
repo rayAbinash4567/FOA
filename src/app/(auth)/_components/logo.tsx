@@ -1,3 +1,5 @@
+// 'use client';
+import useColorMode from '@/hooks/useColorMode';
 import { cn } from '@/lib/utils';
 import { Outfit } from 'next/font/google';
 import Image from 'next/image';
@@ -7,15 +9,15 @@ const font = Outfit({
 });
 
 export function Logo() {
+  const [colorMode] = useColorMode();
+  const imageUrl =
+    colorMode === 'light'
+      ? '/public/images/logo/pp_black.png'
+      : '/public/images/logo/pp_mainlogo.png';
   return (
     <div className="flex flex-col items-center gap-y-4">
       <div className="bg-white  p-1">
-        <Image
-          src="/pp_mainlogo.png"
-          alt="foa-alt-image"
-          height={150}
-          width={150}
-        />
+        <Image src={imageUrl} alt="foa-alt-image" height={30} width={9} />
       </div>
       <div className={cn('flex flex-col items-center ', font.className)}>
         <p className="text-xl font-semibold">Pinnacle Partnerships </p>

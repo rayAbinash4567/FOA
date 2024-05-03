@@ -18,7 +18,7 @@ const Head = () => {
   }
   return (
     <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
-      <div className="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
+      <div className="flex flex-grow items-center justify-between px-4 py-1 shadow-2 md:px-6 2xl:px-11">
         {/* Logo always visible */}
         <Logo />
         {/* Search form */}
@@ -62,6 +62,7 @@ const Head = () => {
           {isSignedIn ? (
             <div className="w-2/4 h-2/4">
               <UserButton afterSignOutUrl="/" />
+              <DropdownUser />
             </div>
           ) : (
             <div className="flex justify-center items-center p-4 m-2">
@@ -70,7 +71,9 @@ const Head = () => {
               </div>
               <div>
                 <Link href="/sign-up">
-                  <Button variant="secondary">Sign Up</Button>
+                  <Button variant="default" className="text-white">
+                    Sign Up
+                  </Button>
                 </Link>
               </div>
             </div>

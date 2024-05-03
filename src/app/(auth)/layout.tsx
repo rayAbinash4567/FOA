@@ -1,31 +1,46 @@
+'use client';
+import useColorMode from '@/hooks/useColorMode';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const [colorMode] = useColorMode();
+  const [imageUrl, setImageUrl] = useState('');
+  useEffect(() => {
+    // Delay setting the image URL until we are client-side and have a valid color mode
+    if (typeof window !== 'undefined' && colorMode) {
+      setImageUrl(
+        colorMode === 'dark'
+          ? '/images/logo/pp_black.png'
+          : '/images/logo/pp_mainlogo.png'
+      );
+    }
+  }, [colorMode, imageUrl]);
+
+  console.log('Color Mode on client:', colorMode);
+  console.log('Image URL on client:', imageUrl);
+
   return (
     <>
       <div className="h-[100vh] flex justify-center items-center rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="flex flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="px-26 py-17.5 text-center">
-              <Link className="mb-5.5 inline-block" href="/">
-                <Image
-                  className="hidden dark:block"
-                  src={'/images/logo/pp_mainlogo.png'}
-                  alt="Logo"
-                  width={136}
-                  height={32}
-                />
-                <Image
-                  className="dark:hidden"
-                  src={'/images/logo/pp_mainlogo.png'}
-                  alt="Logo"
-                  width={136}
-                  height={32}
-                />
+              <Link href="/" className="mb-5.5 inline-block">
+                {imageUrl && (
+                  <Image
+                    key={imageUrl}
+                    src={imageUrl}
+                    alt="Logo"
+                    width={136}
+                    height={32}
+                    priority // Helps with the loading behavior
+                  />
+                )}
               </Link>
               <p className="2xl:px-20">
                 Unlock growth together: Join Pinnacle Partnerships to access

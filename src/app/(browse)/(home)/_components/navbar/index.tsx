@@ -17,7 +17,7 @@ const Navbar = () => {
       <div className="flex flex-grow items-center justify-start w-1/5">
         {' '}
         {/* 20% width */}
-      <Logo />  
+        <Logo />
       </div>
       <div className="flex flex-grow items-center justify-center w-3/5">
         {' '}
@@ -26,9 +26,7 @@ const Navbar = () => {
       </div>
       <div className="flex flex-grow items-center justify-end w-1/5">
         {isSignedIn ? (
-          <div className="w-2/4 h-2/4">
-            <UserButton afterSignOutUrl="/" />
-          </div>
+          <UserButton afterSignOutUrl="/" />
         ) : (
           <div className="flex justify-center items-center p-4 m-2">
             <div className="px-4">
