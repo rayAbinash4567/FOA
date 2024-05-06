@@ -67,7 +67,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     >
       {/* <!-- SIDEBAR HEADER --> */}
       <div className=" flex items-center justify-between gap-2 px-18 py-2 lg:py-10">
-        <Link href="/dashboard/">
+        <Link href="/dashboard">
           <Image
             width={140}
             height={50}
@@ -114,17 +114,17 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Dashboard --> */}
               <SidebarLinkGroup
                 activeCondition={
-                  pathname === '/dashboard/' || pathname.includes('dashboard')
+                  pathname === '/dashboard' || pathname.includes('dashboard')
                 }
               >
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
                       <Link
-                        href="/dashbord/"
+                        href="/dashbord"
                         className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                           (pathname === '/dashboard' ||
-                            pathname.includes('dashboard/')) &&
+                            pathname.includes('dashboard')) &&
                           'bg-graydark dark:bg-meta-4'
                         }`}
                         onClick={(e) => {
@@ -187,12 +187,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                         <ul className="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
                           <li>
                             <Link
-                              href="/dashboard/"
+                              href="/dashboard"
                               className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
                                 pathname === '/dashboard' && 'text-white'
                               }`}
                             >
-                              eCommerce
+                              Pinnacle Partnerships
                             </Link>
                           </li>
                         </ul>
@@ -207,7 +207,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Calendar --> */}
               <li>
                 <Link
-                  href="/dashboard/calendar/"
+                  href="/dashboard/calendar"
                   className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                     pathname.includes('calendar') &&
                     'bg-graydark dark:bg-meta-4'
@@ -341,20 +341,20 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                         <ul className="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
                           <li>
                             <Link
-                              href="/dashboard/forms/form-elements"
+                              href="/dashboard/forms/form-actions"
                               className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                                pathname === '/forms/form-elements' &&
+                                pathname === '/forms/form-actions' &&
                                 'text-white'
                               }`}
                             >
-                              Form Elements
+                              Member Form
                             </Link>
                           </li>
                           <li>
                             <Link
                               href="/dashboard/forms/form-layout"
                               className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                                pathname === '/forms/form-layout' &&
+                                pathname === '/dashboard/forms/form-layout' &&
                                 'text-white'
                               } `}
                             >
@@ -411,7 +411,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Settings --> */}
               <li>
                 <Link
-                  href="/dashboard/settings/"
+                  href="/dashboard/settings"
                   className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                     pathname.includes('settings') &&
                     'bg-graydark dark:bg-meta-4'
@@ -587,7 +587,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             <Link
                               href="/dashboard/ui/alerts"
                               className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                                pathname === '/ui/alerts' && 'text-white'
+                                pathname === '/dashboard/ui/alerts' &&
+                                'text-white'
                               }`}
                             >
                               Alerts
@@ -597,7 +598,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             <Link
                               href="/dashboard/ui/buttons"
                               className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                                pathname === '/ui/buttons' && 'text-white'
+                                pathname === '/dashboard/ui/buttons' &&
+                                'text-white'
                               }`}
                             >
                               Buttons
@@ -693,7 +695,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             <Link
                               href="/dashboard/auth/signin"
                               className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                                pathname === '/auth/signin' && 'text-white'
+                                pathname === '/dashboard/auth/signin' &&
+                                'text-white'
                               }`}
                             >
                               Sign In
@@ -703,7 +706,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             <Link
                               href="/dashboard/auth/signup"
                               className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                                pathname === '/auth/signup' && 'text-white'
+                                pathname === '/dashboard/auth/signup' &&
+                                'text-white'
                               }`}
                             >
                               Sign Up

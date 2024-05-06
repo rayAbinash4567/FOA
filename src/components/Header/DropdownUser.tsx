@@ -49,10 +49,12 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            {isSignedIn ? user.fullName : 'Guest'}
+            {isSignedIn ? user?.fullName : 'Guest'}
           </span>
           <span className="block text-xs">
-            {isSignedIn ? user.username : 'Software Engineer'}
+            {isSignedIn && user?.username
+              ? user?.username
+              : 'Software Engineer'}
           </span>
         </span>
 

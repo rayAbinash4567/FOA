@@ -1,16 +1,19 @@
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import Image from "next/image";
-import { Metadata } from "next";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import Link from "next/link";
+'use client';
+import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
+import DefaultLayout from '@/components/Layouts/DefaultLayout';
+import { useUser } from '@clerk/clerk-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
-export const metadata: Metadata = {
-  title: "Next.js Profile | TailAdmin - Next.js Dashboard Template",
-  description:
-    "This is Next.js Profile page for TailAdmin - Next.js Tailwind CSS Admin Dashboard Template",
-};
+// export const metadata: Metadata = {
+//   title: 'Next.js Profile | TailAdmin - Next.js Dashboard Template',
+//   description:
+//     'This is Next.js Profile page for TailAdmin - Next.js Tailwind CSS Admin Dashboard Template',
+// };
 
 const Profile = () => {
+  const { isLoaded, isSignedIn, user } = useUser();
+
   return (
     <DefaultLayout>
       <div className="mx-auto max-w-242.5">
@@ -19,16 +22,17 @@ const Profile = () => {
         <div className="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
           <div className="relative z-20 h-35 md:h-65">
             <Image
-              src={"/images/cover/cover-01.png"}
+              src={'/images/cover/cover-01.png'}
               alt="profile cover"
-              className="h-full w-full rounded-tl-sm rounded-tr-sm object-cover object-center"
+              className="h-full w-full rounded-tl-sm rounded-tr-sm object-cover "
               width={970}
               height={260}
               style={{
-                width: "auto",
-                height: "auto",
+                width: 'auto',
+                height: 'auto',
               }}
             />
+
             <div className="absolute bottom-1 right-1 z-10 xsm:bottom-4 xsm:right-4">
               <label
                 htmlFor="cover"
@@ -71,12 +75,15 @@ const Profile = () => {
             <div className="relative z-30 mx-auto -mt-22 h-30 w-full max-w-30 rounded-full bg-white/20 p-1 backdrop-blur sm:h-44 sm:max-w-44 sm:p-3">
               <div className="relative drop-shadow-2">
                 <Image
-                  src={"/images/user/user-06.png"}
+                  src={
+                    isSignedIn ? user.imageUrl : '/images/avatars/avatar-01.png'
+                  }
+                  className="rounded-full object-cover object-center"
                   width={160}
                   height={160}
                   style={{
-                    width: "auto",
-                    height: "auto",
+                    width: 'auto',
+                    height: 'auto',
                   }}
                   alt="profile"
                 />
@@ -116,7 +123,7 @@ const Profile = () => {
             </div>
             <div className="mt-4">
               <h3 className="mb-1.5 text-2xl font-semibold text-black dark:text-white">
-                Danish Heilium
+                {isSignedIn ? user.fullName : 'John Doe'}
               </h3>
               <p className="font-medium">Ui/Ux Designer</p>
               <div className="mx-auto mb-5.5 mt-4.5 grid max-w-94 grid-cols-3 rounded-md border border-stroke py-2.5 shadow-1 dark:border-strokedark dark:bg-[#37404F]">

@@ -15,8 +15,8 @@ export default function RootLayout({
     if (typeof window !== 'undefined' && colorMode) {
       setImageUrl(
         colorMode === 'dark'
-          ? '/images/logo/pp_black.png'
-          : '/images/logo/pp_mainlogo.png'
+          ? `/images/logo/pp_black.png`
+          : `/images/logo/pp_mainlogo.png`
       );
     }
   }, [colorMode, imageUrl]);

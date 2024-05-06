@@ -4,22 +4,36 @@ import DropdownMessage from '@/components/Header/DropdownMessage';
 import DropdownNotification from '@/components/Header/DropdownNotification';
 import DropdownUser from '@/components/Header/DropdownUser';
 import { useUser } from '@clerk/clerk-react';
+import { useTheme } from 'next-themes';
+import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect } from 'react';
 import { Button } from '../../../../../components/ui/button';
-import { Logo } from '../navbar/logo';
 import { NavMenu } from '../navbar/menu';
 const Head = () => {
   const { isSignedIn, isLoaded } = useUser();
+  const theme = useTheme();
 
+  useEffect(() => {}, [theme.theme]);
+  const imageUrl =
+    theme?.theme === 'dark'
+      ? '/images/logo/pp_black.png'
+      : '/images/logo/pp_mainlogo.png';
   if (!isLoaded) {
     // Handle loading state however you like
     return null;
   }
   return (
     <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
-      <div className="flex flex-grow items-center justify-between px-4 py-1 shadow-2 md:px-6 2xl:px-11">
+      <div className="flex flex-grow items-center justify-between px-4 py-2 shadow-2 md:px-6 2xl:px-11">
         {/* Logo always visible */}
-        <Logo />
+        <Image
+          src={imageUrl}
+          height={30}
+          width={80}
+          className="width-auto height-auto"
+          alt="Pinnacle Partnerships Logo"
+        />
         {/* Search form */}
         {/* <div className="hidden sm:block">
           <form action="https://formbold.com/s/unique_form_id" method="POST">
