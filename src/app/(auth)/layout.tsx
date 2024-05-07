@@ -2,27 +2,15 @@
 import useColorMode from '@/hooks/useColorMode';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import lightThemeImage from '../../../public/images/logo/pp_mainlogo.png';
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const [colorMode] = useColorMode();
-  const [imageUrl, setImageUrl] = useState('');
-  useEffect(() => {
-    // Delay setting the image URL until we are client-side and have a valid color mode
-    if (typeof window !== 'undefined' && colorMode) {
-      setImageUrl(
-        colorMode === 'dark'
-          ? `/images/logo/pp_black.png`
-          : `/images/logo/pp_mainlogo.png`
-      );
-    }
-  }, [colorMode, imageUrl]);
 
   console.log('Color Mode on client:', colorMode);
-  console.log('Image URL on client:', imageUrl);
 
   return (
     <>
@@ -30,22 +18,21 @@ export default function RootLayout({
         <div className="flex flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="px-26 py-17.5 text-center">
-              <Link href="/" className="mb-5.5 inline-block">
-                {imageUrl && (
-                  <Image
-                    key={imageUrl}
-                    src={imageUrl}
-                    alt="Logo"
-                    width={136}
-                    height={32}
-                    priority // Helps with the loading behavior
-                  />
-                )}
+              <Link
+                href="/"
+                className="mb-5.5  flex justify-center items-center"
+              >
+                <Image
+                  src={lightThemeImage}
+                  alt="My image"
+                  width={180}
+                  height={30}
+                />
               </Link>
-              <p className="2xl:px-20">
-                Unlock growth together: Join Pinnacle Partnerships to access
-                innovative lead generation solutions and connect with top-tier
-                professionals for optimum real estate transaction outcomes.
+              <p className="2xl:px-20 font-satoshi dark:text-white">
+                Unlock growth together: Join Pinnacle Partnerships,the
+                &quot;best in class&quot; real estate transactions and
+                investment service providers.
               </p>
 
               <span className="mt-15 inline-block">
@@ -173,15 +160,15 @@ export default function RootLayout({
             </div>
           </div>
 
-          <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
-            <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
-              <h2 className="mb-1 text-m font-bold text-black dark:text-white sm:text-title-lg">
+          <div className="w-full  border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
+            <div className="  w-full p-4 sm:p-12.5 xl:p-17.5">
+              {/* <h2 className="mb-1 text-m font-bold text-black dark:text-white sm:text-title-lg">
                 Pinnacle Partnerships
               </h2>
               <span className="mb-6 block font-medium">
                 Welcome to &quot;best in class&quot; real estate transactions
                 and investment service providers.
-              </span>
+              </span> */}
 
               {children}
             </div>

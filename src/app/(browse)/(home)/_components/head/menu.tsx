@@ -197,10 +197,10 @@ const components: { title: string; href: string; description: string }[] = [
 
 export function NavMenu() {
   return (
-    <NavigationMenu className=" ">
+    <NavigationMenu className="xsm:hidden md:block ">
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="relative flex items-center justify-center   hover:text-primary">
+          <NavigationMenuTrigger className="relative font-satoshi flex items-center justify-center  font-medium   hover:text-primary ">
             Getting started
           </NavigationMenuTrigger>
           <NavigationMenuContent className="absolute mt-2.5 w-56 rounded-sm border !border-stroke bg-white shadow-default">
@@ -235,11 +235,11 @@ export function NavMenu() {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="relative flex items-center justify-center   hover:text-primary">
+          <NavigationMenuTrigger className="relative font-satoshi flex items-center justify-center font-medium text-bodydark5   hover:text-primary">
             Components
           </NavigationMenuTrigger>
-          <NavigationMenuContent className="absolute mt-2.5 w-56 rounded-sm border !border-stroke bg-white shadow-default">
-            <ul className="grid w-[400px] z-400 gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+          <NavigationMenuContent className="absolute mt-2.5 w-56 rounded-sm border dark:!border-black !border-stroke bg-white  shadow-default">
+            <ul className="grid w-[400px] dark:bg-black  z-400 gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
               {components.map((component) => (
                 <ListItem
                   key={component.title}

@@ -1,7 +1,7 @@
-'use client';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
+"use client";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 
 const DropdownMessage = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -22,8 +22,8 @@ const DropdownMessage = () => {
         return;
       setDropdownOpen(false);
     };
-    document.addEventListener('click', clickHandler);
-    return () => document.removeEventListener('click', clickHandler);
+    document.addEventListener("click", clickHandler);
+    return () => document.removeEventListener("click", clickHandler);
   });
 
   // close if the esc key is pressed
@@ -32,8 +32,8 @@ const DropdownMessage = () => {
       if (!dropdownOpen || keyCode !== 27) return;
       setDropdownOpen(false);
     };
-    document.addEventListener('keydown', keyHandler);
-    return () => document.removeEventListener('keydown', keyHandler);
+    document.addEventListener("keydown", keyHandler);
+    return () => document.removeEventListener("keydown", keyHandler);
   });
 
   return (
@@ -49,7 +49,7 @@ const DropdownMessage = () => {
       >
         <span
           className={`absolute -right-0.5 -top-0.5 z-1 h-2 w-2 rounded-full bg-meta-1 ${
-            notifying === false ? 'hidden' : 'inline'
+            notifying === false ? "hidden" : "inline"
           }`}
         >
           <span className="absolute -z-1 inline-flex h-full w-full animate-ping rounded-full bg-meta-1 opacity-75"></span>
@@ -88,7 +88,7 @@ const DropdownMessage = () => {
         onFocus={() => setDropdownOpen(true)}
         onBlur={() => setDropdownOpen(false)}
         className={`absolute -right-16 mt-2.5 flex h-90 w-75 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark sm:right-0 sm:w-80 ${
-          dropdownOpen === true ? 'block' : 'hidden'
+          dropdownOpen === true ? "block" : "hidden"
         }`}
       >
         <div className="px-4.5 py-3">
@@ -105,11 +105,11 @@ const DropdownMessage = () => {
                 <Image
                   width={112}
                   height={112}
-                  src={'/images/user/user-02.png'}
+                  src={"/images/user/user-02.png"}
                   alt="User"
                   style={{
-                    width: 'auto',
-                    height: 'auto',
+                    width: "auto",
+                    height: "auto",
                   }}
                 />
               </div>
@@ -132,11 +132,11 @@ const DropdownMessage = () => {
                 <Image
                   width={112}
                   height={112}
-                  src={'/images/user/user-01.png'}
+                  src={"/images/user/user-01.png"}
                   alt="User"
                   style={{
-                    width: 'auto',
-                    height: 'auto',
+                    width: "auto",
+                    height: "auto",
                   }}
                 />
               </div>
@@ -159,11 +159,11 @@ const DropdownMessage = () => {
                 <Image
                   width={112}
                   height={112}
-                  src={'/images/user/user-03.png'}
+                  src={"/images/user/user-03.png"}
                   alt="User"
                   style={{
-                    width: 'auto',
-                    height: 'auto',
+                    width: "auto",
+                    height: "auto",
                   }}
                 />
               </div>
@@ -186,11 +186,11 @@ const DropdownMessage = () => {
                 <Image
                   width={112}
                   height={112}
-                  src={'/images/user/user-04.png'}
+                  src={"/images/user/user-04.png"}
                   alt="User"
                   style={{
-                    width: 'auto',
-                    height: 'auto',
+                    width: "auto",
+                    height: "auto",
                   }}
                 />
               </div>
@@ -213,11 +213,11 @@ const DropdownMessage = () => {
                 <Image
                   width={112}
                   height={112}
-                  src={'/images/user/user-02.png'}
+                  src={"/images/user/user-02.png"}
                   alt="User"
                   style={{
-                    width: 'auto',
-                    height: 'auto',
+                    width: "auto",
+                    height: "auto",
                   }}
                 />
               </div>

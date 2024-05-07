@@ -9,16 +9,17 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { Button } from '../../../../../components/ui/button';
-import { NavMenu } from '../navbar/menu';
+import { NavMenu } from './menu';
 const Head = () => {
   const { isSignedIn, isLoaded } = useUser();
   const theme = useTheme();
+  let imageUrl = '/images/logo/pp_mainlogo.png';
+  useEffect(() => {
+    if (theme.theme === 'dark') {
+      imageUrl = '/images/logo/pp_black.png';
+    }
+  }, [theme]);
 
-  useEffect(() => {}, [theme.theme]);
-  const imageUrl =
-    theme?.theme === 'dark'
-      ? '/images/logo/pp_black.png'
-      : '/images/logo/pp_mainlogo.png';
   if (!isLoaded) {
     // Handle loading state however you like
     return null;
@@ -31,7 +32,7 @@ const Head = () => {
           src={imageUrl}
           height={30}
           width={80}
-          className="width-auto height-auto"
+          className="width-auto height-auto object-cover"
           alt="Pinnacle Partnerships Logo"
         />
         {/* Search form */}
@@ -64,13 +65,21 @@ const Head = () => {
             </div>
           </form>
         </div> */}
-        <NavMenu />
+        <div className="sm:hidden md:block">
+          <NavMenu />
+        </div>
         {/* Right-aligned actions */}
         <div className="flex items-center gap-3 2xsm:gap-7">
           <ul className="flex items-center gap-2 2xsm:gap-4">
             <DarkModeSwitcher />
-            <DropdownNotification />
-            <DropdownMessage />
+            {isSignedIn ? (
+              <>
+                <DropdownNotification />
+                <DropdownMessage />
+              </>
+            ) : (
+              <></>
+            )}
           </ul>
           {isSignedIn ? (
             <div className="w-2/4 h-2/4">
