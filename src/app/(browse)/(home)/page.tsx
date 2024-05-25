@@ -1,83 +1,134 @@
-import Image from 'next/image';
-import '../../../css/output.css';
+// import { Button } from '@/components/ui/button';
+// import Link from 'next/link';
+
+// export default function Home() {
+//   return (
+//     <div className=" relative isolate px-6 lg:px-8">
+//       <div
+//         className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+//         aria-hidden="true"
+//       >
+//         <div
+//           className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] dark:bg-slate-800 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+//           style={{
+//             clipPath:
+//               'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+//           }}
+//         />
+//       </div>
+//       <div className=" mx-auto w-2/3 py-8">
+//         <div className=" sm:mb-8 flex justify-center">
+//           <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+//             Announcing our new partner.{' '}
+//             <a href="#" className="font-semibold text-indigo-600">
+//               <span className="absolute inset-0" aria-hidden="true" />
+//               Read more <span aria-hidden="true">&rarr;</span>
+//             </a>
+//           </div>
+//         </div>
+//         <div className="text-center">
+//           <h1 className="dark:text-gray md:text-5xl  text-center  font-lexend  text-gray-800 text-3xl pt-8">
+//             Transactional Support & Partner Marketing Program
+//           </h1>
+//           <p className=" mt-6 text-lg leading-8 text-gray-600 text-center">
+//             Unlock growth together: Join Pinnacle Partnerships to access
+//             innovative lead generation solutions and connect with top-tier
+//             professionals for optimum real estate transaction outcomes.
+//           </p>
+//           <div className="mt-10 flex items-center justify-center gap-x-6">
+//             <Link href="/sign-up">
+//               <Button className="text-white">Get started</Button>
+//             </Link>
+
+//             <a
+//               href="https://pinnaclepartnerships.com/"
+//               className="text-sm font-semibold leading-6 text-gray-900"
+//             >
+//               Learn more <span aria-hidden="true">→</span>
+//             </a>
+//           </div>
+//         </div>
+//       </div>
+//       <div
+//         className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden dark:bg-slate-800  sm:top-[calc(100%-30rem)]"
+//         aria-hidden="true"
+//       >
+//         <div
+//           className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2  bg-gradient-to-tr dark:bg-slate-800 from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+//           style={{
+//             clipPath:
+//               'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+//           }}
+//         />
+//       </div>
+//     </div>
+//   );
+// }
+
+import { Button } from '@/components/ui/button';
+
 export default function Home() {
   return (
-    <main>
-      {/* <!-- One h1 is important in every website but here we dont need so opacity-0 class is assign for that--> */}
+    <div className="relative min-h-screen isolate px-6 lg:px-8 flex flex-col">
+      {/* Background SVG at the top */}
+      <div
+        className="absolute inset-x-0 top-0 -z-10 transform-gpu overflow-hidden blur-3xl"
+        aria-hidden="true"
+      >
+        <div
+          className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] dark:bg-slate-800 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+          style={{
+            clipPath:
+              'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+          }}
+        />
+      </div>
 
-      <section className="  ">
-        <div className="grid md:grid-cols-4">
-          <div className="sedans-card p-12 text-yellow bg-orange text-white md:rounded-l-lg max-sm:rounded-t-lg">
-            <Image
-              height={50}
-              width={500}
-              src="/images/cards/cards-01.png"
-              alt=""
-            />
-            <h2 className="  text-xl mt-9 mb-6">About Pinnacle Partnerships</h2>
-            <p className="text-base leading-6 font-lexend opacity-75">
-              Choose a sedan for its affordability and excellent fuel economy.
-              Ideal for cruising in the city or on your next road trip.
-            </p>
-            <button className="bg-btn-bg text-orange  py-3 px-8 rounded-full transition ease-in-out duration-300 mt-20 border-2 border-white hover:text-white hover:bg-opacity-0">
-              Learn more
-            </button>
-          </div>
-
-          <div className="suvs-card p-12 text-yellow bg-light-green text-white">
-            <Image
-              height={50}
-              width={500}
-              src="/images/cards/cards-02.png"
-              alt=""
-            />
-            <h2 className="uppercase font-bold text-4xl mt-9 mb-6 font-shoulders">
-              suvs
-            </h2>
-            <p className="text-base leading-6 font-lexend opacity-75">
-              Take an SUV for its spacious interior, power, and versatility.
-              Perfect for your next family vacation and off-road adventures.
-            </p>
-            <button className="bg-btn-bg text-light-green  py-3 px-8 rounded-full transition ease-in-out duration-300 mt-20 border-2 border-white hover:text-white hover:bg-opacity-0">
-              Learn more
-            </button>
-          </div>
-          <div className="sedans-card p-12 text-yellow bg-orange text-white md:rounded-l-lg max-sm:rounded-t-lg">
-            <Image
-              height={50}
-              width={500}
-              src="/images/cards/cards-04.png"
-              alt=""
-            />
-            <h2 className="font-bold font-shoulders text-3xl mt-9 mb-6">
-              About Pinnacle Partnerships
-            </h2>
-            <p className="text-base leading-6 font-lexend opacity-75">
-              Choose a sedan for its affordability and excellent fuel economy.
-              Ideal for cruising in the city or on your next road trip.
-            </p>
-            <button className="bg-btn-bg text-orange  py-3 px-8 rounded-full transition ease-in-out duration-300 mt-20 border-2 border-white hover:text-white hover:bg-opacity-0">
-              Learn more
-            </button>
-          </div>
-          <div className="luxury-card p-12 text-yellow bg-dark-green text-white md:rounded-r-lg max-sm:rounded-b-lg">
-            <Image
-              height={50}
-              width={500}
-              src="/images/cards/cards-03.png"
-              alt=""
-            />
-            <h2 className=" text-4xl mt-9 mb-6 font-shoulders">Luxury</h2>
-            <p className="text-base leading-6 font-lexend opacity-75">
-              Take an SUV for its spacious interior, power, and versatility.
-              Perfect for your next family vacation and off-road adventures.
-            </p>
-            <button className="bg-btn-bg text-dark-green font-lexend py-3 px-8 rounded-full transition ease-in-out duration-300 mt-20 border-2 border-white hover:text-white hover:bg-opacity-0">
-              Learn more
-            </button>
+      {/* Main content */}
+      <div className="mx-auto w-2/3 py-2 mt-16 mb-auto">
+        <div className="sm:mb-8 flex justify-center">
+          <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+            Announcing our new partner.{' '}
+            <a href="#" className="font-semibold text-indigo-600">
+              <span className="absolute inset-0" aria-hidden="true" />
+              Read more <span aria-hidden="true">&rarr;</span>
+            </a>
           </div>
         </div>
-      </section>
-    </main>
+        <div className="text-center">
+          <h1 className="dark:text-gray md:text-5xl text-center font-lexend text-gray-800 text-3xl pt-8">
+            Transactional Support & Partner Marketing Program
+          </h1>
+          <p className="mt-6 text-lg leading-8 text-gray-600 text-center">
+            Unlock growth together: Join Pinnacle Partnerships to access
+            innovative lead generation solutions and connect with top-tier
+            professionals for optimum real estate transaction outcomes.
+          </p>
+          <div className="mt-10 flex items-center justify-center gap-x-6">
+            <Button className="text-white">Get started</Button>
+            <a
+              href="#"
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
+              Learn more <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Background SVG at the bottom */}
+      <div
+        className="absolute inset-x-0 bottom-0 -z-10 transform-gpu overflow-hidden dark:bg-slate-800"
+        aria-hidden="true"
+      >
+        <div
+          className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr dark:bg-slate-800 from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+          style={{
+            clipPath:
+              'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+          }}
+        />
+      </div>
+    </div>
   );
 }

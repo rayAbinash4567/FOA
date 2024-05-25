@@ -51,14 +51,17 @@ export async function POST(req: Request) {
   // User created
   if (eventType === 'user.created') {
     try {
+      const jobTitle = payload.data.jobTitle || 'Default';
       await db.user.create({
         data: {
           externalUserId: payload.data.id,
           firstName: payload.data.first_name,
           lastName: payload.data.last_name,
           imageUrl: payload.data.image_url,
+          jobTitle: jobTitle,
         },
       });
+
       return new Response('User created successfully', {
         status: 200,
       });
@@ -80,6 +83,7 @@ export async function POST(req: Request) {
           firstName: payload.data.first_name,
           lastName: payload.data.last_name,
           imageUrl: payload.data.image_url,
+          jobTitle: payload.data.job_title,
         },
       });
       return new Response('User updated successfully', {

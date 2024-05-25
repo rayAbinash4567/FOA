@@ -10,8 +10,9 @@ const font = Outfit({
 
 export function Logo() {
   const [colorMode] = useColorMode();
+  console.log(colorMode);
   const imageUrl =
-    colorMode === 'light'
+    colorMode === 'dark'
       ? '/public/images/logo/pp_black.png'
       : '/public/images/logo/pp_mainlogo.png';
   return (

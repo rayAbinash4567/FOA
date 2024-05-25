@@ -24,11 +24,10 @@ const Profile = () => {
             <Image
               src={'/images/cover/cover-01.png'}
               alt="profile cover"
-              className="h-full w-full rounded-tl-sm rounded-tr-sm object-cover "
+              className="h-full rounded-tl-sm rounded-tr-sm object-cover "
               width={970}
               height={260}
               style={{
-                width: 'auto',
                 height: 'auto',
               }}
             />

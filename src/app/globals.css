@@ -8,6 +8,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@media (min-width: 720px) {
+  .test {
+    background-color: red;
+  }
+}
+
 @layer base {
   body {
     @apply relative z-1 bg-[#F5F3FF] font-satoshi text-base font-normal text-body;

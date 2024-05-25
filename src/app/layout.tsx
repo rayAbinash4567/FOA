@@ -1,4 +1,3 @@
-import { ThemeProvider } from '@/components/ui/theme-provider';
 import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata } from 'next';
 import { Inter, Outfit, Poppins } from 'next/font/google';
@@ -24,12 +23,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    // provide dark theme to clerk
     <ClerkProvider>
       <html lang="en">
-        <body>
-          <ThemeProvider attribute="class">{children}</ThemeProvider>
-        </body>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <body>{children}</body>
       </html>
     </ClerkProvider>
   );

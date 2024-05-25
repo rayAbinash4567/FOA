@@ -19,6 +19,13 @@ const config: Config = {
       ...defaultTheme.screens,
     },
     extend: {
+      scrollbarHide: {
+        '&::-webkit-scrollbar': {
+          display: 'none',
+        },
+        '-ms-overflow-style': 'none', // IE and Edge
+        'scrollbar-width': 'none', // Firefox
+      },
       colors: {
         current: 'currentColor',
         transparent: 'transparent',
@@ -69,6 +76,12 @@ const config: Config = {
         'title-sm': ['20px', '26px'],
         'title-sm2': ['22px', '28px'],
         'title-xsm': ['18px', '24px'],
+      },
+      screens: {
+        sm: '640px',
+        md: '720px',
+        lg: '1024px',
+        // add other breakpoints if needed
       },
       spacing: {
         4.5: '1.125rem',

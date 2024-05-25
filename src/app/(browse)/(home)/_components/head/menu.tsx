@@ -197,10 +197,10 @@ const components: { title: string; href: string; description: string }[] = [
 
 export function NavMenu() {
   return (
-    <NavigationMenu className="xsm:hidden md:block ">
+    <NavigationMenu className="">
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="relative font-satoshi flex items-center justify-center  font-medium   hover:text-primary ">
+          <NavigationMenuTrigger className="relative font-lexend  flex items-center justify-center     hover:text-primary ">
             Getting started
           </NavigationMenuTrigger>
           <NavigationMenuContent className="absolute mt-2.5 w-56 rounded-sm border !border-stroke bg-white shadow-default">
@@ -235,7 +235,7 @@ export function NavMenu() {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="relative font-satoshi flex items-center justify-center font-medium text-bodydark5   hover:text-primary">
+          <NavigationMenuTrigger className="relative font-lexend flex items-center justify-center font-medium text-bodydark5   hover:text-primary">
             Components
           </NavigationMenuTrigger>
           <NavigationMenuContent className="absolute mt-2.5 w-56 rounded-sm border dark:!border-black !border-stroke bg-white  shadow-default">
@@ -276,7 +276,7 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-2 focus:bg-gray-2',
+            'block  select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-2 focus:bg-gray-2',
             className
           )}
           {...props}

@@ -1,17 +1,17 @@
 import Head from './_components/head';
-
 export default function BrowseLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <div className="dark:bg-boxdark-2 dark:text-bodydark min-h-screen flex flex-col">
+    <div className=" ">
       {/* <Navbar /> */}
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
       <Head />
-      <div className="flex-grow overflow-auto pt-5   dark:bg-boxdark-2 dark:text-bodydark ">
-        {children}
-      </div>
+
+      {/* <Header /> */}
+      <div className="dark:bg-slate-800"> {children}</div>
     </div>
   );
 }
