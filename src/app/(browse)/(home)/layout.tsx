@@ -1,3 +1,5 @@
+import '@/css/satoshi.css';
+import '@/css/style.css';
 import Head from './_components/head';
 export default function BrowseLayout({
   children,

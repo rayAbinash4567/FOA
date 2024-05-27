@@ -1,7 +1,12 @@
+'use client';
 import { Button } from '@/components/ui/button';
+import { useUser } from '@clerk/clerk-react';
+import Link from 'next/link';
 import Footer from './_components/Footer';
 
 export default function Home() {
+  const { isSignedIn } = useUser();
+
   return (
     <>
       <div className="relative dark:bg-slate-800 min-h-screen isolate px-6 lg:px-8 flex flex-col">
@@ -31,7 +36,7 @@ export default function Home() {
             </div>
           </div>
           <div className="text-center">
-            <h1 className="dark:text-gray p-2 m-2 md:text-5xl text-center font-lexend text-gray-800 text-3xl pt-8">
+            <h1 className="dark:text-gray p-2 m-2 md:text-5xl text-center  text-gray-800 text-3xl pt-8">
               Transactional Support & Partner Marketing Program
             </h1>
             <p className="mt-6 font-satoshi text-lg leading-8 text-gray-600 text-center">
@@ -40,7 +45,11 @@ export default function Home() {
               professionals for optimum real estate transaction outcomes.
             </p>
             <div className="mt-10 flex p-2 m-2 items-center justify-center gap-x-6">
-              <Button className="text-white">Get started</Button>
+              <Link href="/dashboard">
+                <Button className="text-white">
+                  {isSignedIn ? 'Go to Dashboard' : 'Get Started'}
+                </Button>
+              </Link>
               <a
                 href="#"
                 className="text-sm font-semibold p-4 m-4 leading-6 text-gray-900"
