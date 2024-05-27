@@ -155,6 +155,7 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 import * as React from 'react';
 
 const components: { title: string; href: string; description: string }[] = [
@@ -200,10 +201,24 @@ export function NavMenu() {
     <NavigationMenu className="">
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="relative font-lexend  flex items-center justify-center     hover:text-primary ">
-            Getting started
+          <Link href="/dashboard" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Home
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <Link href="/dashboard" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              About Us
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger className="relative font-satoshi  font-medium flex items-center justify-center    hover:text-primary ">
+            Join Pinnacle Partnerships
           </NavigationMenuTrigger>
-          <NavigationMenuContent className="absolute mt-2.5 w-56 rounded-sm border !border-stroke bg-white shadow-default">
+          <NavigationMenuContent className="absolute font-satoshi  mt-2.5 w-56 rounded-sm border !border-stroke bg-white shadow-default">
             <ul className="grid gap-2 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
@@ -211,23 +226,41 @@ export function NavMenu() {
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
                     href="/"
                   >
+                    <Image
+                      src="/public/next.svg"
+                      alt="Pinnacle-Partnerhsips-Logo"
+                      height={30}
+                      width={50}
+                    />
                     <div className="mb-2 mt-4 text-lg font-medium">
-                      shadcn/ui
+                      Pinnacle Partnerships
                     </div>
-                    <p className="text-sm leading-tight text-muted-foreground">
+                    <a className="text-sm font-satoshi  leading-tight text-muted-foreground">
                       Beautifully designed components built with Radix UI and
                       Tailwind CSS.
-                    </p>
+                    </a>
                   </a>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/docs" title="Introduction">
+              <ListItem
+                className="hover:bg-slate-500 text-white"
+                href="/docs"
+                title="Introduction"
+              >
                 Re-usable components built using Radix UI and Tailwind CSS.
               </ListItem>
-              <ListItem href="/docs/installation" title="Installation">
+              <ListItem
+                className="hover:bg-slate-500 text-white"
+                href="/docs/installation"
+                title="Installation"
+              >
                 How to install dependencies and structure your app.
               </ListItem>
-              <ListItem href="/docs/primitives/typography" title="Typography">
+              <ListItem
+                className="hover:bg-slate-500 text-white"
+                href="/docs/primitives/typography"
+                title="Typography"
+              >
                 Styles for headings, paragraphs, lists...etc
               </ListItem>
             </ul>
@@ -235,16 +268,17 @@ export function NavMenu() {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="relative font-lexend flex items-center justify-center font-medium text-bodydark5   hover:text-primary">
+          <NavigationMenuTrigger className="relative font-satoshi flex items-center justify-center font-medium text-bodydark5   hover:text-primary">
             Components
           </NavigationMenuTrigger>
-          <NavigationMenuContent className="absolute mt-2.5 w-56 rounded-sm border dark:!border-black !border-stroke bg-white  shadow-default">
+          <NavigationMenuContent className="absolute mt-2.5 w-56 rounded-sm border dark:!border-black !border-stroke bg-white dark:bg-slate-700  shadow-default">
             <ul className="grid w-[400px] dark:bg-black  z-400 gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
               {components.map((component) => (
                 <ListItem
                   key={component.title}
                   title={component.title}
                   href={component.href}
+                  className="hover:bg-slate-500 text-white"
                 >
                   {component.description}
                 </ListItem>

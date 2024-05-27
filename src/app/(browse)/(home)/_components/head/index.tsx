@@ -10,6 +10,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Button } from '../../../../../components/ui/button';
+import MobileNavigation from '../MobileNavgiation';
 import { NavMenu } from './menu';
 
 const Head = () => {
@@ -29,10 +30,13 @@ const Head = () => {
   if (!isLoaded) {
     return null; // Optionally, you can place a loader here
   }
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen((prevState) => !prevState); // This ensures the toggle is always correct based on the previous state
+  };
   return (
     <>
-      <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
-        <div className=" flex flex-grow items-center justify-between px-4 py-[14px] shadow-2 md:px-6 2xl:px-11">
+      <header className=" sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
+        <div className=" flex w-full items-center justify-between px-4 py-[14px] shadow-2 md:px-6 2xl:px-11">
           {/* Logo always visible */}
           <div className="">
             <Image
@@ -43,7 +47,43 @@ const Head = () => {
               alt="Pinnacle Partnerships Logo"
             />
           </div>
-          <div className="md:hidden">|||</div>
+          {/* Hamburger menu for mobile navigation */}
+          <button className="md:hidden" onClick={toggleMobileMenu}>
+            {mobileMenuOpen ? (
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6 18L18 6M6 6l12 12"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            ) : (
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3 12H21M3 6H21M3 18H21"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            )}
+          </button>
+          {mobileMenuOpen && <MobileNavigation />}
           <NavMenu />
           <div className="hidden lg:block">
             <form action="https://formbold.com/s/unique_form_id" method="POST">
@@ -93,7 +133,7 @@ const Head = () => {
                 <DropdownUser />
               </div>
             ) : (
-              <div className="flex justify-center items-center p-4 m-2">
+              <div className="flex justify-center items-center font-satoshi p-4 m-2">
                 <div className="px-4">
                   <Link href="/sign-in">Login</Link>
                 </div>

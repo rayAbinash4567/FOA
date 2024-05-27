@@ -11,7 +11,7 @@ export default function BrowseLayout({
       <Head />
 
       {/* <Header /> */}
-      <div className="dark:bg-slate-800"> {children}</div>
+      <div className=" "> {children}</div>
     </div>
   );
 }
