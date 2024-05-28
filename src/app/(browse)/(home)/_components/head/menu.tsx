@@ -15,78 +15,60 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import * as React from 'react';
 
-const components: { title: string; href: string; description: string }[] = [
-  {
-    title: 'Alert Dialog',
-    href: '/docs/primitives/alert-dialog',
-    description:
-      'A modal dialog that interrupts the user with important content and expects a response.',
-  },
-  {
-    title: 'Hover Card',
-    href: '/docs/primitives/hover-card',
-    description:
-      'For sighted users to preview content available behind a link.',
-  },
-  {
-    title: 'Progress',
-    href: '/docs/primitives/progress',
-    description:
-      'Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.',
-  },
-  {
-    title: 'Scroll-area',
-    href: '/docs/primitives/scroll-area',
-    description: 'Visually or semantically separates content.',
-  },
-  {
-    title: 'Tabs',
-    href: '/docs/primitives/tabs',
-    description:
-      'A set of layered sections of content—known as tab panels—that are displayed one at a time.',
-  },
-  {
-    title: 'Tooltip',
-    href: '/docs/primitives/tooltip',
-    description:
-      'A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.',
-  },
-];
-
 export function NavMenu() {
   return (
     <NavigationMenu className="">
       <NavigationMenuList>
         <NavigationMenuItem>
-          <Link href="/dashboard" legacyBehavior passHref>
+          <Link
+            href="https://pinnaclepartnerships.com/"
+            legacyBehavior
+            passHref
+          >
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Home
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/dashboard" legacyBehavior passHref>
+          <Link
+            href="https://pinnaclepartnerships.com/about-2/"
+            legacyBehavior
+            passHref
+          >
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               About
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger className="relative font-satoshi   flex items-center justify-center font-medium text-bodydark5   hover:text-primary">
+        <NavigationMenuItem className="">
+          <NavigationMenuTrigger className="relative font-satoshi text-body   font-medium flex items-center justify-center    hover:text-primary ">
             Hire A Partner
           </NavigationMenuTrigger>
-          <NavigationMenuContent className="absolute mt-2.5 w-56 rounded-sm border dark:!border-black !border-stroke bg-white dark:bg-slate-700  shadow-default">
-            <ul className="grid w-[400px] dark:bg-black  z-400 gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {components.map((component) => (
-                <ListItem
-                  key={component.title}
-                  title={component.title}
-                  href={component.href}
-                  className="hover:bg-slate-500 text-white"
-                >
-                  {component.description}
-                </ListItem>
-              ))}
+          <NavigationMenuContent className="  dark:bg-boxdark absolute font-satoshi mt-2.5 w-56 rounded-sm border  border-whiten dark:border-slate-700 bg-white shadow-default">
+            <ul className="grid gap-2 p-6 md:w-[200px] lg:w-[400px] ">
+              <ListItem
+                className="dark:hover:bg-meta-4 dark:text-white"
+                href="https://pinnaclepartnerships.com/hire-a-partner/"
+                title="Why Hire A Partner"
+              >
+                Checkout benefits of hiring a Pinnacle Parnter.
+              </ListItem>
+              <ListItem
+                className="dark:hover:bg-meta-4 dark:text-white"
+                href="https://pinnaclepartnerships.com/meeting/"
+                title="Schedule A Meeting"
+              >
+                Schedule Meeting with our real estate industry experts.
+              </ListItem>
+              <ListItem
+                className="dark:hover:bg-meta-4 dark:text-white"
+                href="https://pinnaclepartnerships.com/directory/"
+                title="Directory Access"
+              >
+                Access to network of top-tier real estate professionals.Hire A
+                Pinnacle Pro
+              </ListItem>
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
@@ -100,7 +82,7 @@ export function NavMenu() {
                 <NavigationMenuLink asChild>
                   <a
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                    href="images/icon/icon-sun.svg"
+                    href="https://pinnaclepartnerships.com/member-application/"
                   >
                     <Image
                       src="/images/logo/pp_mainlogo.png"
@@ -109,35 +91,38 @@ export function NavMenu() {
                       width={60}
                     />
                     <div className="mb-2 mt-4 text-lg dark:text-white font-medium">
-                      Pinnacle Partnerships
+                      Pinnacle Partnerships Member Application
                     </div>
                     <a className="text-sm font-satoshi  leading-tight text-muted-foreground">
-                      Beautifully designed components built with Radix UI and
-                      Tailwind CSS.
+                      Start your application now and unlock endless
+                      opportunities together!.
                     </a>
                   </a>
                 </NavigationMenuLink>
               </li>
               <ListItem
                 className="dark:hover:bg-meta-4 dark:text-white"
-                href="/docs"
-                title="Introduction"
+                href="https://pinnaclepartnerships.com/join-partnership/"
+                title="Why Join Us"
               >
-                Re-usable components built using Radix UI and Tailwind CSS.
+                Benefits of our Exclusive Participant Mutual Supply Chain
+                Ecosystem.
               </ListItem>
               <ListItem
                 className="dark:hover:bg-meta-4 dark:text-white"
-                href="/docs/installation"
-                title="Installation"
+                href="https://pinnaclepartnerships.com/meeting/"
+                title="Schedule A Meeting"
               >
-                How to install dependencies and structure your app.
+                Understand how Pinnacle Partnerships can elevate your goals to
+                new heights .
               </ListItem>
               <ListItem
                 className="dark:hover:bg-meta-4 dark:text-white"
-                href="/docs/primitives/typography"
-                title="Typography"
+                href="https://pinnaclepartnerships.com/leadership-roles/"
+                title="Leadership Roles"
               >
-                Styles for headings, paragraphs, lists...etc
+                Pinnacle Partnerships thrives because of a triumvirate of
+                leadership roles.Understand the roles and responsibilities.
               </ListItem>
             </ul>
           </NavigationMenuContent>
