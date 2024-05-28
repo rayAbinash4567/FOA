@@ -2,8 +2,8 @@
 import { Button } from '@/components/ui/button';
 import { useUser } from '@clerk/clerk-react';
 import Link from 'next/link';
+import Benefits from './_components/Benefits';
 import Footer from './_components/Footer';
-
 export default function Home() {
   const { isSignedIn } = useUser();
 
@@ -23,7 +23,6 @@ export default function Home() {
             }}
           />
         </div>
-
         {/* Main content */}
         <div className="dark:bg-black rounded-md p-4 m-4 mx-auto w-2/3 py-2 mt-16 mb-auto">
           <div className="sm:mb-8 flex justify-center pt-6 ">
@@ -59,7 +58,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-
         {/* Background SVG at the bottom */}
         <div
           className="absolute inset-x-0 bottom-0 -z-10 transform-gpu overflow-hidden dark:bg-slate-800"
@@ -74,6 +72,7 @@ export default function Home() {
           />
         </div>
       </div>
+      <Benefits />
       <Footer />
     </>
   );

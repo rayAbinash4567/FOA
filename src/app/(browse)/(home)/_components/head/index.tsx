@@ -129,7 +129,7 @@ const Head = () => {
               )}
             </ul>
             {isSignedIn ? (
-              <div className="w-2/4 h-2/4">
+              <div className="w-2/3 h-2/4">
                 <DropdownUser />
               </div>
             ) : (

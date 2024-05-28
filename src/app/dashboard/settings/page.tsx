@@ -2,7 +2,6 @@ import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '@/components/Layouts/DefaultLayout';
 import { UserProfile } from '@clerk/nextjs';
 import { Metadata } from 'next';
-import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'Next.js Settings | TailAdmin - Next.js Dashboard Template',
@@ -13,11 +12,11 @@ export const metadata: Metadata = {
 const Settings = () => {
   return (
     <DefaultLayout>
-      <div className="mx-auto max-w-270">
+      <div className="mx-auto max-w-270  ">
         <Breadcrumb pageName="Settings" />
         <UserProfile />
-        <div className="grid grid-cols-5 gap-8">
-          <div className="col-span-5 xl:col-span-3">
+        <div className="grid grid-cols-5 gap-8 mx-4 px-4">
+          {/* <div className="col-span-5 xl:col-span-3">
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
               <div className="border-b border-stroke px-7 py-4 dark:border-strokedark">
                 <h3 className="font-medium text-black dark:text-white">
@@ -217,8 +216,8 @@ const Settings = () => {
                 </form>
               </div>
             </div>
-          </div>
-          <div className="col-span-5 xl:col-span-2">
+          </div> */}
+          {/* <div className="col-span-5 xl:col-span-2">
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
               <div className="border-b border-stroke px-7 py-4 dark:border-strokedark">
                 <h3 className="font-medium text-black dark:text-white">
@@ -315,7 +314,7 @@ const Settings = () => {
                 </form>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </DefaultLayout>

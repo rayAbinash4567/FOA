@@ -72,7 +72,7 @@ export function NavMenu() {
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="relative font-satoshi text-body  flex items-center justify-center font-medium text-bodydark5   hover:text-primary">
+          <NavigationMenuTrigger className="relative font-satoshi   flex items-center justify-center font-medium text-bodydark5   hover:text-primary">
             Hire A Partner
           </NavigationMenuTrigger>
           <NavigationMenuContent className="absolute mt-2.5 w-56 rounded-sm border dark:!border-black !border-stroke bg-white dark:bg-slate-700  shadow-default">
@@ -90,11 +90,11 @@ export function NavMenu() {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
-        <NavigationMenuItem className="dark:border-strokedark">
+        <NavigationMenuItem className="">
           <NavigationMenuTrigger className="relative font-satoshi text-body   font-medium flex items-center justify-center    hover:text-primary ">
             Join Pinnacle Partnerships
           </NavigationMenuTrigger>
-          <NavigationMenuContent className=" dark:border-strokedark dark:bg-boxdark absolute font-satoshi mt-2.5 w-56 rounded-sm border !border-stroke bg-white shadow-default">
+          <NavigationMenuContent className="  dark:bg-boxdark absolute font-satoshi mt-2.5 w-56 rounded-sm border  border-whiten dark:border-slate-700 bg-white shadow-default">
             <ul className="grid gap-2 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
@@ -103,12 +103,12 @@ export function NavMenu() {
                     href="images/icon/icon-sun.svg"
                   >
                     <Image
-                      src="/public/foa1.jpeg"
+                      src="/images/logo/pp_mainlogo.png"
                       alt="Pinnacle-Partnerhsips-Logo"
-                      height={30}
-                      width={50}
+                      height={60}
+                      width={60}
                     />
-                    <div className="mb-2 mt-4 text-lg font-medium">
+                    <div className="mb-2 mt-4 text-lg dark:text-white font-medium">
                       Pinnacle Partnerships
                     </div>
                     <a className="text-sm font-satoshi  leading-tight text-muted-foreground">
@@ -119,21 +119,21 @@ export function NavMenu() {
                 </NavigationMenuLink>
               </li>
               <ListItem
-                className="hover:bg-slate-500 text-white"
+                className="dark:hover:bg-meta-4 dark:text-white"
                 href="/docs"
                 title="Introduction"
               >
                 Re-usable components built using Radix UI and Tailwind CSS.
               </ListItem>
               <ListItem
-                className="hover:bg-slate-500 text-white"
+                className="dark:hover:bg-meta-4 dark:text-white"
                 href="/docs/installation"
                 title="Installation"
               >
                 How to install dependencies and structure your app.
               </ListItem>
               <ListItem
-                className="hover:bg-slate-500 text-white"
+                className="dark:hover:bg-meta-4 dark:text-white"
                 href="/docs/primitives/typography"
                 title="Typography"
               >
