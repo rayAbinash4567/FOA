@@ -1,9 +1,9 @@
 import React, { useRef, useEffect } from "react";
 import Image from "next/image";
-import { Brand } from "@/types/brand";
+import { Brands } from "@/types/brands";
 import { motion } from "framer-motion";
 
-const SingleBrand = ({ brand }: { brand: Brand }) => {
+const SingleBrand = ({ brand }: { brand: Brands }) => {
   const { image, href, name, imageLight, id } = brand;
 
   return (
