@@ -2,13 +2,21 @@
 import { Button } from '@/components/ui/button';
 import { useUser } from '@clerk/clerk-react';
 import Link from 'next/link';
-import Benefits from './_components/Benefits';
 import Footer from './_components/Footer';
+import About from './_components/components/About';
+import Brands from './_components/components/Brands';
+import CTA from './_components/components/CTA';
+import Feature from './_components/components/Features';
+import FeaturesTab from './_components/components/FeaturesTab';
+import FunFact from './_components/components/FunFact';
+import Hero from './_components/components/Hero';
+import Integration from './_components/components/Integration';
 export default function Home() {
   const { isSignedIn } = useUser();
 
   return (
     <>
+      <Hero />
       <div className="relative dark:bg-slate-800 min-h-screen isolate px-6 lg:px-8 flex flex-col">
         {/* Background SVG at the top */}
         <div
@@ -72,7 +80,22 @@ export default function Home() {
           />
         </div>
       </div>
-      <Benefits />
+
+      <div className="dark:bg-slate-800">
+        {/* <Hero /> */}
+        <Brands />
+        <Feature />
+        <About />
+        <FeaturesTab />
+        <FunFact />
+        <Integration />
+        <CTA />
+        {/* <FAQ /> */}
+        {/* <Testimonial />
+        <Pricing />
+        <Contact />
+        <Blog /> */}
+      </div>
       <Footer />
     </>
   );

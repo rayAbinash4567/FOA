@@ -1,7 +1,5 @@
 'use client';
 
-import Link from 'next/link';
-
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -12,7 +10,10 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import { cn } from '@/lib/utils';
+import { faTachometerAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
+import Link from 'next/link';
 import * as React from 'react';
 
 export function NavMenu() {
@@ -131,7 +132,11 @@ export function NavMenu() {
         {/* Additional menu items would go here */}
         <NavigationMenuItem>
           <Link href="/dashboard" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+            <NavigationMenuLink className="text-primary font-bold hover:underline underline-offset-8 ">
+              <FontAwesomeIcon
+                icon={faTachometerAlt}
+                style={{ marginRight: '2px' }}
+              />{' '}
               Dashboard
             </NavigationMenuLink>
           </Link>
