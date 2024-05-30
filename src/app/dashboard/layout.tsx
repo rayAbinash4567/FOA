@@ -26,6 +26,13 @@ export default function RootLayout({
         <div className="dark:bg-boxdark-2 dark:text-bodydark">
           {loading ? <Loader /> : children}
         </div>
+        <script
+          id="messenger-widget-b"
+          src="https://cdn.botpenguin.com/website-bot.js"
+          defer
+        >
+          6658bc7a0c1742d3de499172,6658bc3f1d98cba608a6a2f6
+        </script>
       </body>
     </html>
   );
