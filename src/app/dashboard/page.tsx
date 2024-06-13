@@ -1,5 +1,7 @@
-import ECommerce from '@/components/Dashboard/E-commerce';
+import PartnerDashboard from '@/components/Dashboard/PartnerDashboard';
 import DefaultLayout from '@/components/Layouts/DefaultLayout';
+import MemberDirectory from '@/components/MemberDirectory';
+import { auth } from '@clerk/nextjs/server';
 import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Pinnacle Partnerships Dashboard | Real Estate Network',
@@ -7,14 +9,14 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  const { sessionClaims } = auth();
+  const role = sessionClaims?.metadata?.role;
+  console.log(role);
+
   return (
     <>
-      {/* <div className="flex flex-col gap-y-4">
-        <h1>Dashboard</h1>
-        <UserButton afterSignOutUrl="/" />
-      </div> */}
       <DefaultLayout>
-        <ECommerce />
+        {role === 'partner' ? <PartnerDashboard /> : <MemberDirectory />}
       </DefaultLayout>
     </>
   );

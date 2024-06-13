@@ -4,7 +4,6 @@ import DefaultLayout from '@/components/Layouts/DefaultLayout';
 import { useUser } from '@clerk/clerk-react';
 import Image from 'next/image';
 import Link from 'next/link';
-
 // export const metadata: Metadata = {
 //   title: 'Next.js Profile | TailAdmin - Next.js Dashboard Template',
 //   description:

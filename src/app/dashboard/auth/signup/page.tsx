@@ -1,14 +1,14 @@
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
 
-import { Metadata } from "next";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import DefaultLayout from '@/components/Layouts/DefaultLayout';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Next.js SignUp Page | TailAdmin - Next.js Dashboard Template",
-  description: "This is Next.js SignUp Page TailAdmin Dashboard Template",
+  title: 'Next.js SignUp Page | TailAdmin - Next.js Dashboard Template',
+  description: 'This is Next.js SignUp Page TailAdmin Dashboard Template',
   // other metadata
 };
 
@@ -24,14 +24,14 @@ const SignUp: React.FC = () => {
               <Link className="mb-5.5 inline-block" href="/">
                 <Image
                   className="hidden dark:block"
-                  src={"/images/logo/logo.svg"}
+                  src={'/images/logo/logo.svg'}
                   alt="Logo"
                   width={176}
                   height={32}
                 />
                 <Image
                   className="dark:hidden"
-                  src={"/images/logo/logo-dark.svg"}
+                  src={'/images/logo/logo-dark.svg'}
                   alt="Logo"
                   width={176}
                   height={32}
@@ -358,7 +358,7 @@ const SignUp: React.FC = () => {
 
                 <div className="mt-6 text-center">
                   <p>
-                    Already have an account?{" "}
+                    Already have an account?{' '}
                     <Link href="/auth/signin" className="text-primary">
                       Sign in
                     </Link>

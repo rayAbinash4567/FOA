@@ -8,7 +8,7 @@ import ChatCard from '../Chat/ChatCard';
 import MapOne from '../Maps/MapOne';
 import TableOne from '../Tables/TableOne';
 
-const ECommerce: React.FC = () => {
+const Dashboard: React.FC = () => {
   return (
     <>
       <div className=" pt-4 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
@@ -112,4 +112,4 @@ const ECommerce: React.FC = () => {
   );
 };
 
-export default ECommerce;
+export default Dashboard;
