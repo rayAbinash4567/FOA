@@ -22,6 +22,24 @@
 }
 
 @layer utilities {
+  /* third-party libraries CSS */
+
+  .custom-phone-input {
+    @apply w-full py-6.5 rounded-lg bg-white border-[1.5px] border-stroke bg-transparent px-5  text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary;
+  }
+
+  .dark .custom-phone-input {
+    @apply border-form-strokedark bg-form-input text-white focus:border-primary;
+  }
+
+  .react-tel-input .selected-flag {
+    @apply w-full rounded-lg bg-white border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter;
+  }
+
+  .dark .react-tel-input .selected-flag {
+    @apply dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary;
+  }
+
   /* Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -40,8 +58,6 @@
     @apply h-[calc(100vh_-_8.125rem)] lg:h-[calc(100vh_-_5.625rem)];
   }
 }
-
-/* third-party libraries CSS */
 
 .tableCheckbox:checked ~ div span {
   @apply opacity-100;

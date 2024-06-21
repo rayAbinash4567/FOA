@@ -52,13 +52,13 @@ const MemberFilter: React.FC<FilterComponentProps> = ({ onFilterChange }) => {
     <div className="p-4 my-2 rounded-sm border border-stroke bg-white px-5 pb-8 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-6">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div>
-          <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
+          <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200 ">
             Company Size
           </label>
           <select
             name="companySize"
             onChange={handleChange}
-            className="block w-full border-stroke px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-gray-300 dark:border-strokedark"
+            className="block w-full border-stroke px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-gray-300  dark:border-strokedark dark:bg-boxdark"
           >
             <option value="">All</option>
             <option value="10-50 employees">10-50 employees</option>
@@ -74,7 +74,7 @@ const MemberFilter: React.FC<FilterComponentProps> = ({ onFilterChange }) => {
             type="text"
             name="location"
             onChange={handleChange}
-            className="block w-full px-3 py-2 border-stroke border rounded-md dark:bg-gray-700 dark:text-gray-300 dark:border-strokedark"
+            className="block w-full px-3 py-2 dark:border-strokedark dark:bg-boxdark border-stroke border rounded-md dark:bg-gray-700 dark:text-gray-300 "
             placeholder="Enter location"
           />
         </div>
@@ -85,7 +85,7 @@ const MemberFilter: React.FC<FilterComponentProps> = ({ onFilterChange }) => {
           <select
             name="services"
             onChange={handleChange}
-            className="block w-full border-stroke px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-gray-300 dark:border-strokedark"
+            className="block w-full border-stroke  dark:bg-boxdark px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-gray-300 dark:border-strokedark"
           >
             <option value="">All Services</option>
             {servicesList.map((service, index) => (
@@ -102,7 +102,7 @@ const MemberFilter: React.FC<FilterComponentProps> = ({ onFilterChange }) => {
           <select
             name="rating"
             onChange={handleChange}
-            className="block w-full border-stroke px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-gray-300 dark:border-strokedark"
+            className="block w-full border-stroke px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-gray-300  dark:border-strokedark dark:bg-boxdark"
           >
             <option value="">All</option>
             <option value="1">1 Star</option>
@@ -119,7 +119,7 @@ const MemberFilter: React.FC<FilterComponentProps> = ({ onFilterChange }) => {
           <select
             name="industry"
             onChange={handleChange}
-            className="block w-full border-stroke px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-gray-300 dark:border-strokedark"
+            className="block w-full  dark:bg-boxdark border-stroke px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-gray-300 dark:border-strokedark"
           >
             <option value="">All Industries</option>
             {industryList.map((industry, index) => (

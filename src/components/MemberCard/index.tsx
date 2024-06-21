@@ -21,7 +21,7 @@ const MemberCard: React.FC<MemberCardProps> = ({
   rating,
 }) => {
   return (
-    <div className="rounded-sm  border  border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-6 xl:px-1 xl:mx-2">
+    <div className="rounded-sm  border  border-stroke bg-white  pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 ">
       <div className="flex flex-col items-center pb-10">
         <Image
           className="w-24 h-24 mb-3 rounded-full shadow-lg"
@@ -59,7 +59,7 @@ const MemberCard: React.FC<MemberCardProps> = ({
           </a>
           <a
             href="#"
-            className="py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none dark:bg-slate-800 dark:hover:text-blue-700 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-white focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:border-white"
+            className=" mx-4 hover:border hover:text-neutral-900 hover:border-blue-700 items-center px-4 py-2 text-sm font-medium text-center text-bodydark2 border border-zinc-800  rounded-lg focus:ring-4 focus:outline-none  dark:text-white  dark:focus:ring-blue-800"
           >
             Message
           </a>

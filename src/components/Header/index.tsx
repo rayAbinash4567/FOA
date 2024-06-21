@@ -13,6 +13,9 @@ const Header = (props: {
   setSidebarOpen: (arg0: boolean) => void;
 }) => {
   const { user } = useUser();
+  const id = user?.id;
+  const newpath = `/dashboard/memberapplication/${id}`;
+  console.log(user);
   const role = user?.publicMetadata?.role;
 
   return (
@@ -111,7 +114,11 @@ const Header = (props: {
         <div className="flex items-center gap-3 2xsm:gap-7">
           <ul className="flex items-center gap-2 2xsm:gap-4">
             {role !== 'partner' && (
-              <Button className="lg text-white">Become a Partner Member</Button>
+              <Link href={newpath}>
+                <Button className="lg text-white">
+                  Become a Partner Member
+                </Button>
+              </Link>
             )}
             {/* <!-- Dark Mode Toggler --> */}
             <DarkModeSwitcher />

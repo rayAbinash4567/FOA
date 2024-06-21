@@ -72,7 +72,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         <Link href="/dashboard">
           <Image
             width={140}
-            height={50}
+            height={140}
             src={'/images/logo/pp_black.png'}
             alt="Logo"
             priority
