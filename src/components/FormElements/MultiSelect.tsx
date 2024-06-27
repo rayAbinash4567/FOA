@@ -1,114 +1,105 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { forwardRef, useEffect, useRef, useState } from 'react';
 
 interface Option {
   value: string;
   text: string;
   selected: boolean;
   element?: HTMLElement;
+  additionalInfo?: string; // New field for additional information
 }
 
 interface DropdownProps {
   id: string;
+  options: Option[];
+  onOptionsChange: (options: Option[]) => void; // Callback to pass updated options
 }
 
-const MultiSelect: React.FC<DropdownProps> = ({ id }) => {
-  const [options, setOptions] = useState<Option[]>([]);
-  const [selected, setSelected] = useState<number[]>([]);
-  const [show, setShow] = useState(false);
-  const dropdownRef = useRef<any>(null);
-  const trigger = useRef<any>(null);
+const MultiSelect = forwardRef<HTMLDivElement, DropdownProps>(
+  ({ id, options: initialOptions, onOptionsChange }, ref) => {
+    const [options, setOptions] = useState<Option[]>(initialOptions);
+    const [selected, setSelected] = useState<number[]>([]);
+    const [show, setShow] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+    const trigger = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const loadOptions = () => {
-      const select = document.getElementById(id) as HTMLSelectElement | null;
-      if (select) {
-        const newOptions: Option[] = [];
-        for (let i = 0; i < select.options.length; i++) {
-          newOptions.push({
-            value: select.options[i].value,
-            text: select.options[i].innerText,
-            selected: select.options[i].hasAttribute("selected"),
-          });
-        }
-        setOptions(newOptions);
-      }
+    const open = () => {
+      setShow(true);
     };
 
-    loadOptions();
-  }, [id]);
+    const isOpen = () => {
+      return show === true;
+    };
 
-  const open = () => {
-    setShow(true);
-  };
+    const select = (index: number, event: React.MouseEvent) => {
+      const newOptions = [...options];
 
-  const isOpen = () => {
-    return show === true;
-  };
+      if (!newOptions[index].selected) {
+        newOptions[index].selected = true;
+        newOptions[index].element = event.currentTarget as HTMLElement;
+        setSelected([...selected, index]);
+      } else {
+        const selectedIndex = selected.indexOf(index);
+        if (selectedIndex !== -1) {
+          newOptions[index].selected = false;
+          setSelected(selected.filter((i) => i !== index));
+        }
+      }
 
-  const select = (index: number, event: React.MouseEvent) => {
-    const newOptions = [...options];
+      setOptions(newOptions);
+      onOptionsChange(newOptions); // Update parent component with new options
+    };
 
-    if (!newOptions[index].selected) {
-      newOptions[index].selected = true;
-      newOptions[index].element = event.currentTarget as HTMLElement;
-      setSelected([...selected, index]);
-    } else {
+    const handleAdditionalInfoChange = (index: number, value: string) => {
+      const newOptions = [...options];
+      newOptions[index].additionalInfo = value;
+      setOptions(newOptions);
+      onOptionsChange(newOptions); // Update parent component with new options
+    };
+
+    const remove = (index: number) => {
+      const newOptions = [...options];
       const selectedIndex = selected.indexOf(index);
+
       if (selectedIndex !== -1) {
         newOptions[index].selected = false;
         setSelected(selected.filter((i) => i !== index));
+        setOptions(newOptions);
+        onOptionsChange(newOptions); // Update parent component with new options
       }
-    }
-
-    setOptions(newOptions);
-  };
-
-  const remove = (index: number) => {
-    const newOptions = [...options];
-    const selectedIndex = selected.indexOf(index);
-
-    if (selectedIndex !== -1) {
-      newOptions[index].selected = false;
-      setSelected(selected.filter((i) => i !== index));
-      setOptions(newOptions);
-    }
-  };
-
-  const selectedValues = () => {
-    return selected.map((option) => options[option].value);
-  };
-
-  useEffect(() => {
-    const clickHandler = ({ target }: MouseEvent) => {
-      if (!dropdownRef.current) return;
-      if (
-        !show ||
-        dropdownRef.current.contains(target) ||
-        trigger.current.contains(target)
-      )
-        return;
-      setShow(false);
     };
-    document.addEventListener("click", clickHandler);
-    return () => document.removeEventListener("click", clickHandler);
-  });
 
-  return (
-    <div className="relative z-50">
-      <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-        Multiselect Dropdown
-      </label>
-      <div>
+    const selectedValues = () => {
+      return selected.map((option) => options[option].value);
+    };
+
+    useEffect(() => {
+      const clickHandler = ({ target }: MouseEvent) => {
+        if (!dropdownRef.current || !trigger.current) return;
+        if (
+          !show ||
+          dropdownRef.current.contains(target as Node) ||
+          trigger.current.contains(target as Node)
+        )
+          return;
+        setShow(false);
+      };
+      document.addEventListener('click', clickHandler);
+      return () => document.removeEventListener('click', clickHandler);
+    });
+
+    return (
+      <div className="relative" ref={ref}>
         <select className="hidden" id={id}>
-          <option value="1">Option 2</option>
-          <option value="2">Option 3</option>
-          <option value="3">Option 4</option>
-          <option value="4">Option 5</option>
+          {options.map((option, index) => (
+            <option key={index} value={option.value}>
+              {option.text}
+            </option>
+          ))}
         </select>
 
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center z-50">
           <input name="values" type="hidden" defaultValue={selectedValues()} />
-          <div className="relative z-20 inline-block w-full">
+          <div className="relative inline-block w-full">
             <div className="relative flex flex-col items-center">
               <div ref={trigger} onClick={open} className="w-full">
                 <div className="mb-2 flex rounded border border-stroke py-2 pl-3 pr-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input">
@@ -151,7 +142,8 @@ const MultiSelect: React.FC<DropdownProps> = ({ id }) => {
                         <input
                           placeholder="Select an option"
                           className="h-full w-full appearance-none bg-transparent p-1 px-2 outline-none"
-                          defaultValue={selectedValues()}
+                          value={selectedValues().join(', ')}
+                          readOnly
                         />
                       </div>
                     )}
@@ -184,12 +176,10 @@ const MultiSelect: React.FC<DropdownProps> = ({ id }) => {
               </div>
               <div className="w-full px-4">
                 <div
-                  className={`max-h-select absolute left-0 top-full z-40 w-full overflow-y-auto rounded bg-white shadow dark:bg-form-input ${
-                    isOpen() ? "" : "hidden"
+                  className={`max-h-select absolute left-0 top-full z-50 w-full overflow-y-auto rounded bg-white shadow dark:bg-form-input ${
+                    isOpen() ? '' : 'hidden'
                   }`}
                   ref={dropdownRef}
-                  onFocus={() => setShow(true)}
-                  onBlur={() => setShow(false)}
                 >
                   <div className="flex w-full flex-col">
                     {options.map((option, index) => (
@@ -200,7 +190,7 @@ const MultiSelect: React.FC<DropdownProps> = ({ id }) => {
                         >
                           <div
                             className={`relative flex w-full items-center border-l-2 border-transparent p-2 pl-2 ${
-                              option.selected ? "border-primary" : ""
+                              option.selected ? 'border-primary' : ''
                             }`}
                           >
                             <div className="flex w-full items-center">
@@ -210,6 +200,22 @@ const MultiSelect: React.FC<DropdownProps> = ({ id }) => {
                             </div>
                           </div>
                         </div>
+                        {option.selected && (
+                          <div className="ml-4 mt-2">
+                            <input
+                              type="text"
+                              placeholder={`Please specify ${option.text}`}
+                              value={option.additionalInfo || ''}
+                              onChange={(e) =>
+                                handleAdditionalInfoChange(
+                                  index,
+                                  e.target.value
+                                )
+                              }
+                              className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                            />
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -219,8 +225,8 @@ const MultiSelect: React.FC<DropdownProps> = ({ id }) => {
           </div>
         </div>
       </div>
-    </div>
-  );
-};
-
+    );
+  }
+);
+MultiSelect.displayName = 'MultiSelect';
 export default MultiSelect;

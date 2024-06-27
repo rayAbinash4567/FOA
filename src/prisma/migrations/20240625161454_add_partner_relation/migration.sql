@@ -1,0 +1,31 @@
+-- CreateTable
+CREATE TABLE "Partner" (
+    "partnerId" TEXT NOT NULL,
+    "companyName" TEXT NOT NULL,
+    "companySize" TEXT NOT NULL,
+    "country" TEXT NOT NULL,
+    "street" TEXT NOT NULL,
+    "city" TEXT NOT NULL,
+    "state" TEXT NOT NULL,
+    "zip" TEXT NOT NULL,
+    "brandAffiliation" TEXT NOT NULL,
+    "webAddress" TEXT NOT NULL,
+    "vocation" TEXT NOT NULL,
+    "otherVocation" TEXT,
+    "subVocation" TEXT,
+    "speciality" TEXT NOT NULL,
+    "networkingOptions" JSONB NOT NULL,
+    "additionalInfoFields" JSONB,
+    "socialMediaOptions" JSONB NOT NULL,
+    "additionalsocialMediaInfoFields" JSONB,
+    "socialMediaSelfOrPaid" TEXT NOT NULL,
+    "coldCallingSelfOrPaid" TEXT NOT NULL,
+    "advertisingSpend" INTEGER NOT NULL,
+    "marketingOptions" JSONB NOT NULL,
+    "additionalMarketingInfoFields" JSONB,
+    "agreeToTerms" BOOLEAN NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Partner_pkey" PRIMARY KEY ("partnerId")
+);

@@ -33,7 +33,7 @@
   }
 
   .react-tel-input .selected-flag {
-    @apply w-full rounded-lg bg-white border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter;
+    @apply w-full rounded-lg bg-white border-[1.5px] border-stroke bg-transparent px-5 py-2 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter;
   }
 
   .dark .react-tel-input .selected-flag {

@@ -15,7 +15,6 @@ const Header = (props: {
   const { user } = useUser();
   const id = user?.id;
   const newpath = `/dashboard/memberapplication/${id}`;
-  console.log(user);
   const role = user?.publicMetadata?.role;
 
   return (

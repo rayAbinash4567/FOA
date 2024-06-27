@@ -7,8 +7,6 @@ import CheckboxThree from '@/components/Checkboxes/CheckboxThree';
 import CheckboxTwo from '@/components/Checkboxes/CheckboxTwo';
 import DatePickerOne from '@/components/FormElements/DatePicker/DatePickerOne';
 import DatePickerTwo from '@/components/FormElements/DatePicker/DatePickerTwo';
-import MultiSelect from '@/components/FormElements/MultiSelect';
-import SelectGroupTwo from '@/components/SelectGroup/SelectGroupTwo';
 import SwitcherFour from '@/components/Switchers/SwitcherFour';
 import SwitcherOne from '@/components/Switchers/SwitcherOne';
 import SwitcherThree from '@/components/Switchers/SwitcherThree';
@@ -192,10 +190,10 @@ const FormElements = () => {
                 Select input
               </h3>
             </div>
-            <div className="flex flex-col gap-5.5 p-6.5">
+            {/* <div className="flex flex-col gap-5.5 p-6.5">
               <SelectGroupTwo />
               <MultiSelect id="multiSelect" />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

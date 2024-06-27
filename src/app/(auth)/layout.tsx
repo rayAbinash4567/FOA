@@ -1,7 +1,7 @@
 'use client';
 import '@/css/satoshi.css';
 import '@/css/style.css';
-import useColorMode from '@/hooks/useColorMode';
+import { useColorMode } from '@/hooks/useColorMode';
 import Image from 'next/image';
 import Link from 'next/link';
 import lightThemeImage from '../../../public/images/logo/pp_mainlogo.png';

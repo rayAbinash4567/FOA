@@ -1,3 +1,4 @@
+import { ColorModeProvider } from '@/hooks/useColorMode';
 import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata } from 'next';
 import { Inter, Outfit, Poppins } from 'next/font/google';
@@ -23,11 +24,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <body>{children}</body>
-      </html>
-    </ClerkProvider>
+    <ColorModeProvider>
+      <ClerkProvider >
+        <html lang="en">
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <body>{children}</body>
+        </html>
+      </ClerkProvider>
+    </ColorModeProvider>
   );
 }

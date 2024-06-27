@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 datasource db {
   provider     = "postgresql"
   url          = env("DATABASE_URL")
@@ -18,11 +15,40 @@ model User {
   jobTitle       String   @db.Text @default("")
   imageUrl       String   @db.Text
   externalUserId String   @unique
-  role         String?  // Could be 'user', 'partner', 'admin'
+  role           String?  // Could be 'user', 'partner', 'admin'
   isApproved     Boolean  @default(false)  // Used for 'partner' to approve their access
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+  partner        Partner?
 }
 
-
-
+model Partner {
+  id                          String   @id @default(uuid())
+  userId                      String   @unique
+  user                        User     @relation(fields: [userId], references: [id])
+  companyName                 String   @db.Text
+  companySize                 String   @db.Text
+  country                     String   @db.Text
+  street                      String   @db.Text
+  city                        String   @db.Text
+  state                       String   @db.Text
+  zip                         String   @db.Text
+  brandAffiliation            String   @db.Text
+  webAddress                  String   @db.Text
+  vocation                    String   @db.Text
+  otherVocation               String?  @db.Text
+  subVocation                 String?  @db.Text
+  speciality                  String   @db.Text
+  networkingOptions           Json
+  additionalInfoFields        Json?
+  socialMediaOptions          Json
+  additionalsocialMediaInfoFields Json?
+  socialMediaSelfOrPaid       String
+  coldCallingSelfOrPaid       String
+  advertisingSpend            Int
+  marketingOptions            Json
+  additionalMarketingInfoFields Json?
+  agreeToTerms                Boolean
+  createdAt                   DateTime @default(now())
+  updatedAt                   DateTime @updatedAt
+}

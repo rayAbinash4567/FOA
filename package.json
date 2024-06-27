@@ -65,6 +65,7 @@
     "react-input-mask": "^2.0.4",
     "react-number-format": "^5.4.0",
     "react-phone-input-2": "^2.15.1",
+    "react-select": "^5.8.0",
     "resend": "^3.3.0",
     "sharp": "^0.33.4",
     "svix": "^1.15.0",

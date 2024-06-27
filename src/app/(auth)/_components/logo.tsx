@@ -1,5 +1,5 @@
 // 'use client';
-import useColorMode from '@/hooks/useColorMode';
+import { useColorMode } from '@/hooks/useColorMode';
 import { cn } from '@/lib/utils';
 import { Outfit } from 'next/font/google';
 import Image from 'next/image';
