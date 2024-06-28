@@ -266,10 +266,10 @@ export default function Form() {
       setLoading(false);
       // Handle success (e.g., redirect to another page)
       setIsSubmitted(true);
-    } catch (error) {
+    } catch (error: unknown) {
       setLoading(false);
       console.log('Error on catch');
-      console.error('Error submitting form:', error.message, error.stack);
+      console.error('Error submitting form:');
       // Handle error
     }
     reset();
