@@ -7,7 +7,9 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { isSignedIn, isLoaded, user } = useUser();
+  const { isSignedIn, user } = useUser();
+  const role = user?.publicMetadata?.role;
+
   const { signOut } = useClerk();
   const router = useRouter();
   const trigger = useRef<any>(null);
@@ -51,10 +53,8 @@ const DropdownUser = () => {
           <span className="block text-sm font-medium text-black dark:text-white">
             {isSignedIn ? user?.fullName : 'Guest'}
           </span>
-          <span className="block text-xs">
-            {isSignedIn && user?.username
-              ? user?.username
-              : 'Software Engineer'}
+          <span className="block text-xs bold">
+            {isSignedIn && role ? `${role}` : 'User'}
           </span>
         </span>
 

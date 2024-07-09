@@ -233,6 +233,8 @@ export default function Form() {
         }
       } catch (error) {
         console.error('Error checking submission status:', error);
+      } finally {
+        setLoading(false); // Ensure loading state is set to false after fetching
       }
     };
 
@@ -242,7 +244,8 @@ export default function Form() {
   }, [partnerId]);
 
   const processForm: SubmitHandler<Inputs> = async (data) => {
-    const finalData = { ...data, partnerId };
+    const applicationStatus = 'Submitted & Pending Review';
+    const finalData = { ...data, partnerId, applicationStatus };
 
     console.log(finalData);
     try {
@@ -342,7 +345,7 @@ export default function Form() {
           </h2>
           <div className="mb-7.5 flex flex-wrap gap-5 xl:gap-7.5">
             <Link
-              href={`/dashboard/membersapplication/submitted/${partnerId}`}
+              href={`/dashboard/memberapplication/submitted`}
               className="inline-flex items-center justify-center gap-2.5 rounded-md bg-primary py-4 px-10 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
             >
               <span>

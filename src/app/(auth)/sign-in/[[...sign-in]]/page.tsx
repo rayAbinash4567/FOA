@@ -1,6 +1,6 @@
 // pages/signup.tsx
-import { SignUp } from '@clerk/nextjs';
+import { SignIn } from '@clerk/nextjs';
 
 export default function SignupPage() {
-  return <SignUp />;
+  return <SignIn />;
 }

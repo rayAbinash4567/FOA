@@ -125,7 +125,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                       <React.Fragment>
                         <Link
                           href="/dashbord"
-                          className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                          className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2  font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                             (pathname === '/dashboard' ||
                               pathname.includes('dashboard')) &&
                             'bg-graydark dark:bg-meta-4'
@@ -162,7 +162,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                               fill=""
                             />
                           </svg>
-                          Dashboard
+                          Pinnacle Dashboard
                           <svg
                             className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${
                               open && 'rotate-180'
@@ -195,7 +195,41 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                   pathname === '/dashboard' && 'text-white'
                                 }`}
                               >
-                                Pinnacle Partnerships
+                                Transactional Overview
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                href="/dashboard/membertransactions"
+                                className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
+                                  pathname ===
+                                    '/dashboard/membertransactions' &&
+                                  'text-white'
+                                }`}
+                              >
+                                Transaction History
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                href="/dashboard/memberpartners"
+                                className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
+                                  pathname === '/dasboard/memberdirectory' &&
+                                  'text-white'
+                                }`}
+                              >
+                                Your Partners
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                href="/dashboard/memberclients"
+                                className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
+                                  pathname === '/dashboard/memberclients' &&
+                                  'text-white'
+                                }`}
+                              >
+                                My Clients
                               </Link>
                             </li>
                           </ul>
@@ -257,7 +291,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             fill=""
                           />
                         </svg>
-                        Member Directory
+                        Partnership Directory
                         <svg
                           className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${
                             open && 'rotate-180'
@@ -291,7 +325,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 'text-white'
                               }`}
                             >
-                              Pinnacle Partnerships
+                              All Partner Members
                             </Link>
                           </li>
                         </ul>
@@ -364,7 +398,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Forms --> */}
 
               {/* <!-- Menu Item Tables --> */}
-              <li>
+              {/* <li>
                 <Link
                   href="/dashboard/tables"
                   className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
@@ -398,7 +432,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   </svg>
                   Tables
                 </Link>
-              </li>
+              </li> */}
               {/* <!-- Menu Item Tables --> */}
 
               {/* <!-- Menu Item Settings --> */}
