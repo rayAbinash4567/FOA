@@ -75,10 +75,6 @@
     @apply cursor-pointer text-blue-100   focus:text-blue-100 !important;
   }
 
-  .shad-popover {
-    @apply w-[460px] border-none bg-dark-200 shadow-lg !important;
-  }
-
   .floating-toolbar {
     @apply flex w-full min-w-max items-center justify-center gap-2 rounded-lg  p-1.5 shadow-xl;
   }
