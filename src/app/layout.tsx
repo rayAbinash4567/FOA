@@ -1,3 +1,4 @@
+import TransactionProvider from '@/hooks/TransactionProvider';
 import { ColorModeProvider } from '@/hooks/useColorMode';
 import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata } from 'next';
@@ -24,13 +25,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ColorModeProvider>
-      <ClerkProvider >
-        <html lang="en">
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <body>{children}</body>
-        </html>
-      </ClerkProvider>
-    </ColorModeProvider>
+    <html lang="en">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
+      <body>
+        <ColorModeProvider>
+          <ClerkProvider>
+            <TransactionProvider>{children}</TransactionProvider>
+          </ClerkProvider>
+        </ColorModeProvider>
+      </body>
+    </html>
   );
 }

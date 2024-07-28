@@ -1,8 +1,17 @@
 'use client';
+import {
+  useInboxNotifications,
+  useUnreadInboxNotificationsCount,
+} from '@liveblocks/react/suspense';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
 const DropdownNotification = () => {
+  const { inboxNotifications } = useInboxNotifications();
+  const { count } = useUnreadInboxNotificationsCount();
+  const unreadNotifications = inboxNotifications.filter(
+    (notification) => !notification.readAt
+  );
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [notifying, setNotifying] = useState(true);
 
