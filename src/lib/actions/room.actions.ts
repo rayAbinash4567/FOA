@@ -34,7 +34,7 @@ export const createDocument = async ({
     const metadata = {
       creatorId: userId,
       email,
-      title: 'New Transaction Title',
+      title: '[LastName-Middle Initials-FirstName-County-Address] - [Date]',
     };
     const usersAccesses: RoomAccesses = {
       [email]: ['room:write'],

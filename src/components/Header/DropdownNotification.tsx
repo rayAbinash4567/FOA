@@ -296,7 +296,7 @@ const DropdownNotification = () => {
           >
             <InboxNotificationList>
               {unreadNotifications.length <= 0 && (
-                <p className="py-2 text-center text-dark-500">
+                <p className="py-2 text-center font-medium text-boxdark-2 dark:text-white">
                   No new notifications
                 </p>
               )}
