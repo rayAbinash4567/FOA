@@ -44,7 +44,7 @@ export function NavMenu() {
         </NavigationMenuItem>
         <NavigationMenuItem className="">
           <NavigationMenuTrigger className="relative font-satoshi text-body   font-medium flex items-center justify-center    hover:text-primary ">
-            Hire A Partner
+            Hire Partner
           </NavigationMenuTrigger>
           <NavigationMenuContent className="  dark:bg-boxdark absolute font-satoshi mt-2.5 w-56 rounded-sm border  border-whiten dark:border-slate-700 bg-white shadow-default">
             <ul className="grid gap-2 p-6 md:w-[200px] lg:w-[400px] ">
@@ -75,7 +75,7 @@ export function NavMenu() {
         </NavigationMenuItem>
         <NavigationMenuItem className="">
           <NavigationMenuTrigger className="relative font-satoshi text-body   font-medium flex items-center justify-center    hover:text-primary ">
-            Join Pinnacle Partnerships
+            Join Us
           </NavigationMenuTrigger>
           <NavigationMenuContent className="  dark:bg-boxdark absolute font-satoshi mt-2.5 w-56 rounded-sm border  border-whiten dark:border-slate-700 bg-white shadow-default">
             <ul className="grid gap-2 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">

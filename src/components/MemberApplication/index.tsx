@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useColorMode } from '@/hooks/useColorMode';
 import { FormDataSchema } from '@/lib/schema';
 import { useUser } from '@clerk/nextjs';
+import { clerkClient } from '@clerk/nextjs/server';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -194,7 +195,7 @@ export default function Form() {
   const [showOtherProvider, setShowOtherProvider] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const delta = currentStep - previousStep;
-  const partnerId = useUser().user?.id;
+  const partnerId = useUser()?.user?.id;
   const { user } = useUser();
   const [loading, setLoading] = useState(true);
   const ispartner = user?.publicMetadata?.role;
@@ -242,13 +243,28 @@ export default function Form() {
       checkSubmissionStatus();
     }
   }, [partnerId]);
-
   const processForm: SubmitHandler<Inputs> = async (data) => {
     const applicationStatus = 'Submitted & Pending Review';
     const finalData = { ...data, partnerId, applicationStatus };
 
-    console.log(finalData);
+    console.log('Submitting data:', finalData);
+
     try {
+      if (partnerId) {
+        try {
+          await clerkClient.users.updateUserMetadata(partnerId, {
+            publicMetadata: {
+              finalData: finalData,
+            },
+          });
+          console.log('Clerk metadata updated successfully');
+        } catch (clerkError) {
+          console.error('Error updating Clerk metadata:', clerkError);
+          // Consider whether you want to continue or return here
+        }
+      }
+
+      console.log('Sending request to /api/v1/partner');
       const response = await fetch('/api/v1/partner', {
         method: 'POST',
         headers: {
@@ -257,26 +273,72 @@ export default function Form() {
         body: JSON.stringify(finalData),
       });
 
+      console.log('Response status:', response.status);
+
       if (!response.ok) {
-        setLoading(false);
-        console.log('Error here only Not okay response');
         const errorData = await response.json();
-        throw new Error(`Error: ${errorData.message}`);
+        console.error('Server responded with error:', errorData);
+        throw new Error(
+          `Server error: ${errorData.message || 'Unknown error'}`
+        );
       }
 
       const result = await response.json();
       console.log('Success:', result);
       setLoading(false);
-      // Handle success (e.g., redirect to another page)
       setIsSubmitted(true);
     } catch (error: unknown) {
       setLoading(false);
-      console.log('Error on catch');
-      console.error('Error submitting form:');
-      // Handle error
+      console.error('Error submitting form:', error);
+      // Handle error (e.g., show error message to user)
+    } finally {
+      reset();
     }
-    reset();
   };
+
+  // const processForm: SubmitHandler<Inputs> = async (data) => {
+  //   const applicationStatus = 'Submitted & Pending Review';
+  //   const finalData = { ...data, partnerId, applicationStatus };
+
+  //   console.log(finalData);
+
+  //   try {
+  //     if (partnerId) {
+  //       await clerkClient.users.updateUserMetadata(partnerId, {
+  //         privateMetadata: {
+  //           finalData: finalData,
+  //         },
+  //       });
+
+  //     }
+  //     const response = await fetch('/api/v1/partner', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(finalData),
+  //     });
+
+  //     if (!response.ok) {
+  //       setLoading(false);
+  //       console.log('Error here only Not okay response');
+  //       const errorData = await response.json();
+  //       throw new Error(`Error: ${errorData.message}`);
+  //     }
+
+  //     const result = await response.json();
+  //     console.log('Success:', result);
+  //     setLoading(false);
+  //     // Handle success (e.g., redirect to another page)
+  //     setIsSubmitted(true);
+  //   } catch (error: unknown) {
+  //     setLoading(false);
+  //     console.log('Error on catch');
+  //     console.error('Error submitting form:');
+  //     // Handle error
+  //   }
+  //   reset();
+  // };
 
   const selectedOptions = watch('networkingOptions');
   const selectedSocialMediaOptions = watch('socialMediaOptions');

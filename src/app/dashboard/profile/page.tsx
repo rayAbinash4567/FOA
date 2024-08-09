@@ -8,16 +8,50 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 interface SocialMedia {
+  platform: string;
   link: string;
   iconPath: string;
 }
 
+interface MarketingOption {
+  option: string;
+  isSelected: boolean;
+}
+
+interface NetworkingOption {
+  option: string;
+  isSelected: boolean;
+}
+
 interface Partner {
+  id: string;
+  userId: string;
   companyName: string;
   companySize: string;
   vocation: string;
+  subVocation: string;
+  otherVocation: string | null;
   speciality: string;
-  socialMediaOptions?: SocialMedia[];
+  brandAffiliation: string;
+  webAddress: string;
+  street: string;
+  city: string;
+  state: string;
+  zip: string;
+  country: string;
+  coldCallingSelfOrPaid: string;
+  socialMediaSelfOrPaid: string;
+  advertisingSpend: number;
+  agreeToTerms: boolean;
+  role: string;
+  createdAt: string;
+  updatedAt: string;
+  socialMediaOptions: SocialMedia[];
+  marketingOptions: MarketingOption[];
+  networkingOptions: NetworkingOption[];
+  additionalInfoFields: Record<string, any>;
+  additionalMarketingInfoFields: Record<string, any>;
+  additionalsocialMediaInfoFields: Record<string, any>;
 }
 
 interface ProfileData {
@@ -200,16 +234,112 @@ const Profile = () => {
                   <span className="text-sm">Following</span>
                 </div>
               </div>
+              <div className="mt-6.5 grid grid-cols-1 gap-4 md:grid-cols-2">
+                <div className="rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
+                  {profileData?.partner?.vocation ? (
+                    <h4 className="mb-3 font-semibold text-black dark:text-white">
+                      I am a
+                    </h4>
+                  ) : (
+                    <>
+                      <h4 className="mb-3 font-semibold text-black dark:text-white">
+                        No Vocation Specified
+                      </h4>
+                    </>
+                  )}
+                  <p className="text-sm leading-relaxed">
+                    {profileData?.partner?.vocation ||
+                      'No information available'}
+                  </p>
+                </div>
 
+                <div className="rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
+                  <h4 className="mb-3 font-semibold text-black dark:text-white">
+                    Speciality
+                  </h4>
+                  <p className="text-sm leading-relaxed">
+                    {profileData?.partner?.speciality ||
+                      'No speciality information available'}
+                  </p>
+                </div>
+
+                <div className="rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark md:col-span-2">
+                  <h4 className="mb-3 font-semibold text-black dark:text-white">
+                    Experience
+                  </h4>
+                  <div className="text-sm leading-relaxed">
+                    <p className="font-medium">
+                      {profileData?.partner?.companyName || 'Company Name'}
+                    </p>
+                    <p>{profileData?.jobTitle || 'Job Title'}</p>
+                    <p className="text-xs text-body dark:text-bodydark">
+                      {profileData?.partner?.companySize || 'Company Size'} ·
+                      Full-time
+                    </p>
+                  </div>
+                </div>
+              </div>
               <div className="mx-auto max-w-180">
-                <h4 className="font-semibold text-black dark:text-white">
+                {/* <h4 className="font-semibold text-black dark:text-white">
                   About Me
                 </h4>
                 <p className="mt-4.5">
                   {profileData?.partner
                     ? `${profileData.partner.companyName}, ${profileData.partner.companySize}, ${profileData.partner.vocation}, ${profileData.partner.speciality}`
                     : 'No additional information available'}
-                </p>
+                </p> */}
+
+                <div className=" mt-4 py-4 my-4 rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
+                  <h4 className="mb-3 font-semibold text-black dark:text-white">
+                    Company Information
+                  </h4>
+                  <ul className="text-sm leading-relaxed">
+                    <li>
+                      <strong>Name:</strong> {profileData?.partner?.companyName}
+                    </li>
+                    <li>
+                      <strong>Size:</strong> {profileData?.partner?.companySize}
+                    </li>
+                    <li>
+                      <strong>Website:</strong>{' '}
+                      {profileData?.partner?.webAddress || 'N/A'}
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
+                  <h4 className="mb-3 font-semibold text-black dark:text-white">
+                    Location
+                  </h4>
+                  <ul className="text-sm leading-relaxed">
+                    <li>{profileData?.partner?.street}</li>
+                    <li>
+                      {profileData?.partner?.city},{' '}
+                      {profileData?.partner?.state} {profileData?.partner?.zip}
+                    </li>
+                    <li>{profileData?.partner?.country}</li>
+                  </ul>
+                </div>
+
+                <div className="rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
+                  <h4 className="mb-3 font-semibold text-black dark:text-white">
+                    Expertise
+                  </h4>
+                  <ul className="text-sm leading-relaxed">
+                    <li>
+                      <strong>Vocation:</strong>{' '}
+                      {profileData?.partner?.vocation}
+                    </li>
+                    <li>
+                      <strong>Sub-vocation:</strong>{' '}
+                      {profileData?.partner?.subVocation}
+                    </li>
+                    <li>
+                      <strong>Brand Affiliation:</strong>{' '}
+                      {profileData?.partner?.brandAffiliation}
+                    </li>
+                  </ul>
+                </div>
               </div>
 
               <div className="mt-6.5">

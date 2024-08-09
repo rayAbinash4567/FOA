@@ -66,7 +66,7 @@ const Collaborator = ({
           className="size-9 rounded-full"
         />
         <div>
-          <p className="line-clamp-1 text-sm font-semibold leading-4 text-white">
+          <p className="line-clamp-1 text-sm font-semibold leading-4 text-boxdark-2 dark:text-white">
             {collaborator.name}
             <span className="text-10-regular pl-2 ">
               {loading && 'updating...'}

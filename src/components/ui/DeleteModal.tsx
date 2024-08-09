@@ -47,7 +47,7 @@ export const DeleteModal = ({ roomId }: DeleteModalProps) => {
           />
         </Button>
       </DialogTrigger>
-      <DialogContent className="">
+      <DialogContent className="px-4">
         <DialogHeader>
           <Image
             src="/images/assets/icons/delete-modal.svg"
@@ -56,10 +56,12 @@ export const DeleteModal = ({ roomId }: DeleteModalProps) => {
             height={48}
             className="mb-4"
           />
-          <DialogTitle className="dark:text-white">Delete document</DialogTitle>
-          <DialogDescription className="dark:text-white">
-            Are you sure you want to delete this document? This action cannot be
-            undone.
+          <DialogTitle className="dark:text-white text-center text-2xl text-black">
+            Delete Transaction
+          </DialogTitle>
+          <DialogDescription className="dark:text-white text-center text-md mt-4 pt-4 ">
+            Are you sure you want to delete this transaction? This action cannot
+            be undone.
           </DialogDescription>
         </DialogHeader>
 
@@ -68,12 +70,14 @@ export const DeleteModal = ({ roomId }: DeleteModalProps) => {
             Cancel
           </DialogClose>
 
-          <Button
-            onClick={deleteDocumentHandler}
-            className=" w-2/3 text-white justify-center"
-          >
-            {loading ? 'Deleting...' : 'Delete'}
-          </Button>
+          <div className="flex w-full justify-center items-center">
+            <Button
+              onClick={deleteDocumentHandler}
+              className=" w-2/3 text-white mt-2  bg-red hover:bg-rose-500"
+            >
+              {loading ? 'Deleting...' : 'Delete'}
+            </Button>
+          </div>
         </DialogFooter>
       </DialogContent>
     </Dialog>

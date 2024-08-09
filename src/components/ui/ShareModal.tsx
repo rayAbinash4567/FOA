@@ -17,6 +17,7 @@ import { Label } from '../common/ui/label';
 import Collaborator from './Collaborator';
 import UserTypeSelector from './UserType';
 import { Button } from './button';
+import { toast } from './use-toast';
 declare type UserType = 'creator' | 'editor' | 'viewer';
 
 declare type User = {
@@ -46,21 +47,51 @@ const ShareModal = ({
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
   const [email, setEmail] = useState('');
   const [userType, setUserType] = useState<UserType>('viewer');
+  const isValidEmail = (email: string) => {
+    return /\S+@\S+\.\S+/.test(email);
+  };
 
   const shareDocumentHandler = async () => {
     setLoading(true);
+    if (!email || !isValidEmail(email)) {
+      toast({
+        title: 'Error',
+        description: 'Please enter an valid email address',
+        variant: 'destructive',
+      });
+      setLoading(false);
+      return; // Add this to prevent further execution
+    }
 
-    await updateDocumentAccess({
-      roomId,
-      email,
-      userType: userType as UserType,
-      updatedBy: user.info,
-    });
-
-    setLoading(false);
+    try {
+      await updateDocumentAccess({
+        roomId,
+        email,
+        userType: userType as UserType,
+        updatedBy: user.info,
+      });
+      toast({
+        title: 'Success',
+        description: 'Document access updated successfully',
+        variant: 'default',
+      });
+      setEmail(''); // Clear the email input
+      setSuccess('Document access updated successfully');
+    } catch (error) {
+      console.error('Error updating document access:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to update document access',
+        variant: 'destructive',
+      });
+      setError('Failed to update document access');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

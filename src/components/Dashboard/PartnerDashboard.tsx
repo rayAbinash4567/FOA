@@ -1,5 +1,7 @@
 'use client';
-import React from 'react';
+import { useUser } from '@clerk/nextjs';
+import { redirect } from 'next/navigation';
+import React, { useEffect } from 'react';
 import CardDataStats from '../CardDataStats';
 import ChartOne from '../Charts/ChartOne';
 import ChartThree from '../Charts/ChartThree';
@@ -7,8 +9,32 @@ import ChartTwo from '../Charts/ChartTwo';
 import ChatCard from '../Chat/ChatCard';
 import MapOne from '../Maps/MapOne';
 import TableOne from '../Tables/TableOne';
+import Loader from '../common/Loader';
+import { toast } from '../ui/use-toast';
 
 const Dashboard: React.FC = () => {
+  const { user, isLoaded } = useUser();
+  const role = user?.publicMetadata.role;
+  useEffect(() => {
+    if (user) {
+      if (role !== 'partner') {
+        toast({
+          title: 'Uh oh! Something went wrong.',
+          description: 'There was a problem with your request.',
+        });
+        redirect('/dashboard/memberdirectory');
+      }
+    }
+  }, [user, role]);
+
+  if (!isLoaded) {
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
+  }
+
   return (
     <>
       <div className=" pt-4 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">

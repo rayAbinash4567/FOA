@@ -4,7 +4,8 @@ import '@/css/style.css';
 import { useColorMode } from '@/hooks/useColorMode';
 import Image from 'next/image';
 import Link from 'next/link';
-import lightThemeImage from '../../../public/images/logo/pp_mainlogo.png';
+import darkthemeImage from '../../../public/images/logo/pp_black.png';
+import lightthemeImage from '../../../public/images/logo/pp_mainlogo.png';
 export default function RootLayout({
   children,
 }: {
@@ -12,7 +13,7 @@ export default function RootLayout({
 }) {
   const [colorMode] = useColorMode();
 
-  console.log('Color Mode on client:', colorMode);
+  // console.log('Color Mode on client:', colorMode);
 
   return (
     <>
@@ -25,7 +26,7 @@ export default function RootLayout({
                 className="mb-5.5  flex justify-center items-center"
               >
                 <Image
-                  src={lightThemeImage}
+                  src={colorMode === 'light' ? lightthemeImage : darkthemeImage}
                   alt="My image"
                   width={180}
                   height={30}
@@ -167,7 +168,7 @@ export default function RootLayout({
               {/* <h2 className="mb-1 text-m font-bold text-black dark:text-white sm:text-title-lg">
                 Pinnacle Partnerships
               </h2>
-              <span className="mb-6 block font-medium">
+              <span className="mb-6 block font-medium dark:text-white">
                 Welcome to &quot;best in class&quot; real estate transactions
                 and investment service providers.
               </span> */}

@@ -4,31 +4,25 @@ import DropdownMessage from '@/components/Header/DropdownMessage';
 import DropdownNotification from '@/components/Header/DropdownNotification';
 import DropdownUser from '@/components/Header/DropdownUser';
 
+import Loader from '@/components/common/Loader';
+import { useColorMode } from '@/hooks/useColorMode';
 import { useUser } from '@clerk/clerk-react';
-import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import darkthemeImage from '../../../../../../public/images/logo/pp_black.png';
+import lightthemeImage from '../../../../../../public/images/logo/pp_mainlogo.png';
 import { Button } from '../../../../../components/ui/button';
 import MobileNavigation from '../MobileNavgiation';
 import { NavMenu } from './menu';
-
 const Head = () => {
   const { isSignedIn, isLoaded } = useUser();
-  const { resolvedTheme } = useTheme();
-  const [imageUrl, setImageUrl] = useState('/images/logo/pp_black.png');
+  const [colorMode] = useColorMode();
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    if (resolvedTheme === 'light') {
-      setImageUrl('/images/logo/pp_black.png');
-    } else {
-      setImageUrl('/images/logo/pp_mainlogo.png');
-    }
-  }, [resolvedTheme, imageUrl]);
-
   if (!isLoaded) {
-    return null; // Optionally, you can place a loader here
+    return <Loader />; // Optionally, you can place a loader here
   }
   const toggleMobileMenu = () => {
     setMobileMenuOpen((prevState) => !prevState); // This ensures the toggle is always correct based on the previous state
@@ -40,7 +34,7 @@ const Head = () => {
           {/* Logo always visible */}
           <div className="">
             <Image
-              src={imageUrl}
+              src={colorMode === 'light' ? lightthemeImage : darkthemeImage}
               height={30}
               width={80}
               className="object-cover"

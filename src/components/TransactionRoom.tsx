@@ -2,6 +2,7 @@
 
 import { Editor } from '@/components/editor/Editor';
 import { Calendar } from '@/components/ui/calendar';
+
 import {
   Popover,
   PopoverContent,
@@ -17,6 +18,7 @@ import ActiveCollaborators from './ActiveCollaborators';
 import Breadcrumb from './Breadcrumbs/Breadcrumb';
 import Loader from './common/Loader';
 import ShareModal from './ui/ShareModal';
+import { Button } from './ui/button';
 
 declare type UserType = 'creator' | 'editor' | 'viewer';
 declare type User = {
@@ -170,14 +172,14 @@ const TransactionRoom = ({
                 </span>
                 <Popover>
                   <PopoverTrigger asChild>
-                    <button className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">
+                    <Button className="inline-flex text-white items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">
                       <CalendarIcon className="mr-2 h-4 w-4" />
                       {closeDate ? (
                         format(closeDate, 'PPP')
                       ) : (
                         <span>Pick a date</span>
                       )}
-                    </button>
+                    </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">
                     <Calendar
@@ -268,9 +270,9 @@ const TransactionRoom = ({
                     </p>
                   </div>
                   <div className="col-span-2 flex items-center justify-end">
-                    <button className="text-sm text-blue-500 hover:text-blue-700">
+                    <Button className="text-sm text-white ">
                       Send Message
-                    </button>
+                    </Button>
                   </div>
                 </div>
               ))}
