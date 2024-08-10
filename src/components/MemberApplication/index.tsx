@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { useColorMode } from '@/hooks/useColorMode';
 import { FormDataSchema } from '@/lib/schema';
 import { useUser } from '@clerk/nextjs';
-import { clerkClient } from '@clerk/nextjs/server';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -250,20 +249,6 @@ export default function Form() {
     console.log('Submitting data:', finalData);
 
     try {
-      if (partnerId) {
-        try {
-          await clerkClient.users.updateUserMetadata(partnerId, {
-            publicMetadata: {
-              finalData: finalData,
-            },
-          });
-          console.log('Clerk metadata updated successfully');
-        } catch (clerkError) {
-          console.error('Error updating Clerk metadata:', clerkError);
-          // Consider whether you want to continue or return here
-        }
-      }
-
       console.log('Sending request to /api/v1/partner');
       const response = await fetch('/api/v1/partner', {
         method: 'POST',
