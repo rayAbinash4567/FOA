@@ -11,7 +11,6 @@ export const metadata: Metadata = {
 export default function Home() {
   const { sessionClaims } = auth();
   const role = sessionClaims?.metadata?.role;
-  console.log(role);
 
   return (
     <>

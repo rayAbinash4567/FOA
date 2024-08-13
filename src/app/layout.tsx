@@ -3,6 +3,7 @@ import { Toaster } from '@/components/ui/toaster';
 import TransactionProvider from '@/hooks/TransactionProvider';
 import { ColorModeProvider } from '@/hooks/useColorMode';
 import { ClerkProvider } from '@clerk/nextjs';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 import { Inter, Outfit, Poppins } from 'next/font/google';
 import './globals.css';
@@ -42,6 +43,7 @@ export default function RootLayout({
             <ClerkProvider>
               <TransactionProvider>
                 {children}
+                <SpeedInsights />
                 <Toaster />
               </TransactionProvider>
             </ClerkProvider>

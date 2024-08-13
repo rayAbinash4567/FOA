@@ -1,7 +1,6 @@
 'use client';
 import { useUser } from '@clerk/nextjs';
-import { redirect } from 'next/navigation';
-import React, { useEffect } from 'react';
+import React from 'react';
 import CardDataStats from '../CardDataStats';
 import ChartOne from '../Charts/ChartOne';
 import ChartThree from '../Charts/ChartThree';
@@ -10,22 +9,9 @@ import ChatCard from '../Chat/ChatCard';
 import MapOne from '../Maps/MapOne';
 import TableOne from '../Tables/TableOne';
 import Loader from '../common/Loader';
-import { toast } from '../ui/use-toast';
 
 const Dashboard: React.FC = () => {
-  const { user, isLoaded } = useUser();
-  const role = user?.publicMetadata.role;
-  useEffect(() => {
-    if (user) {
-      if (role !== 'partner') {
-        toast({
-          title: 'Uh oh! Something went wrong.',
-          description: 'There was a problem with your request.',
-        });
-        redirect('/dashboard/memberdirectory');
-      }
-    }
-  }, [user, role]);
+  const { isLoaded } = useUser();
 
   if (!isLoaded) {
     return (
