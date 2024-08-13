@@ -1,8 +1,9 @@
 'use server';
 
-import { clerkClient } from '@clerk/nextjs/server';
-import { parseStringify } from '../utils';
+import { db } from '@/db/db';
+import { auth, clerkClient } from '@clerk/nextjs/server';
 import { liveblocks } from '../liveblocks';
+import { parseStringify } from '../utils';
 
 export const getClerkUsers = async ({ userIds }: { userIds: string[] }) => {
   try {
@@ -26,7 +27,6 @@ export const getClerkUsers = async ({ userIds }: { userIds: string[] }) => {
     console.log(`Error fetching users: ${error}`);
   }
 };
-
 
 export const getDocumentUsers = async ({
   roomId,
@@ -59,3 +59,35 @@ export const getDocumentUsers = async ({
     console.log(`Error fetching document users: ${error}`);
   }
 };
+
+// ^  Check for User : If user is partner or not
+
+export async function getPartner() {
+  try {
+    const { userId } = auth();
+    if (!userId) {
+      throw new Error('Unauthorized');
+    }
+
+    const user = await db.user.findUnique({
+      where: { externalUserId: userId },
+    });
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    const partner = await db.partner.findUnique({
+      where: { userId: user.id },
+    });
+
+    if (!partner) {
+      throw new Error('Partner not found');
+    }
+
+    return partner;
+  } catch (error) {
+    console.error('Error processing getPartner request:', error);
+    throw error;
+  }
+}

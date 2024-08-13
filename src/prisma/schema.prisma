@@ -26,6 +26,7 @@ model Partner {
   id                          String   @id @default(uuid())
   userId                      String   @unique
   user                        User     @relation(fields: [userId], references: [id])
+  email                       String   @unique
   companyName                 String   @db.Text
   companySize                 String   @db.Text
   country                     String   @db.Text
@@ -33,8 +34,14 @@ model Partner {
   city                        String   @db.Text
   state                       String   @db.Text
   zip                         String   @db.Text
+  cellPhone                   String   @unique
+  officePhone                 String?
+  cellProvider                String   @db.Text
+  otherCellProvider           String?  @db.Text
+  acceptTexts                 Boolean  @default(false)
+  acceptMMS                   Boolean  @default(false)
   brandAffiliation            String   @db.Text
-  webAddress                  String   @db.Text
+  webAddress                  String?  @db.Text
   vocation                    String   @db.Text
   otherVocation               String?  @db.Text
   subVocation                 String?  @db.Text

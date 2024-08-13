@@ -2,12 +2,12 @@
 import { useEffect } from 'react';
 // import useColorMode from '@/hooks/useColorMode';
 import { useColorMode } from '@/hooks/useColorMode';
+import { getPartner } from '@/lib/actions/user.action';
 import { FormDataSchema } from '@/lib/schema';
 import { useUser } from '@clerk/nextjs';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import PhoneInput from 'react-phone-input-2';
@@ -193,6 +193,7 @@ export default function Form() {
   const [showOtherVocation, setShowOtherVocation] = useState(false);
   const [showOtherProvider, setShowOtherProvider] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const delta = currentStep - previousStep;
   const partnerId = useUser()?.user?.id;
   const { user } = useUser();
@@ -223,30 +224,31 @@ export default function Form() {
     },
   });
 
+  //^ server action for getting partner data
+
   useEffect(() => {
     const checkSubmissionStatus = async () => {
       try {
-        const response = await fetch(`/api/v1/partner`);
-        if (response.ok) {
-          const result = await response.json();
-          setIsSubmitted(!!result); // Set isSubmitted based on whether a record was found
+        if (user) {
+          const partner = await getPartner();
+          setIsSubmitted(!!partner); // Set isSubmitted based on whether a partner record was found
+          setLoading(false);
         }
       } catch (error) {
         console.error('Error checking submission status:', error);
+        setError('Error checking submission status. Please try again.');
       } finally {
-        setLoading(false); // Ensure loading state is set to false after fetching
+        setLoading(false);
       }
     };
 
-    if (partnerId) {
+    if (user) {
       checkSubmissionStatus();
     }
-  }, [partnerId]);
+  }, [user]);
+  // & Form Submission for parnter application
   const processForm: SubmitHandler<Inputs> = async (data) => {
-    const applicationStatus = 'Submitted & Pending Review';
-    const finalData = { ...data, partnerId, applicationStatus };
-
-    console.log('Submitting data:', finalData);
+    console.log('Submitting data:', data);
 
     try {
       console.log('Sending request to /api/v1/partner');
@@ -255,7 +257,7 @@ export default function Form() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(finalData),
+        body: JSON.stringify(data),
       });
 
       console.log('Response status:', response.status);
@@ -275,55 +277,10 @@ export default function Form() {
     } catch (error: unknown) {
       setLoading(false);
       console.error('Error submitting form:', error);
-      // Handle error (e.g., show error message to user)
     } finally {
       reset();
     }
   };
-
-  // const processForm: SubmitHandler<Inputs> = async (data) => {
-  //   const applicationStatus = 'Submitted & Pending Review';
-  //   const finalData = { ...data, partnerId, applicationStatus };
-
-  //   console.log(finalData);
-
-  //   try {
-  //     if (partnerId) {
-  //       await clerkClient.users.updateUserMetadata(partnerId, {
-  //         privateMetadata: {
-  //           finalData: finalData,
-  //         },
-  //       });
-
-  //     }
-  //     const response = await fetch('/api/v1/partner', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(finalData),
-  //     });
-
-  //     if (!response.ok) {
-  //       setLoading(false);
-  //       console.log('Error here only Not okay response');
-  //       const errorData = await response.json();
-  //       throw new Error(`Error: ${errorData.message}`);
-  //     }
-
-  //     const result = await response.json();
-  //     console.log('Success:', result);
-  //     setLoading(false);
-  //     // Handle success (e.g., redirect to another page)
-  //     setIsSubmitted(true);
-  //   } catch (error: unknown) {
-  //     setLoading(false);
-  //     console.log('Error on catch');
-  //     console.error('Error submitting form:');
-  //     // Handle error
-  //   }
-  //   reset();
-  // };
 
   const selectedOptions = watch('networkingOptions');
   const selectedSocialMediaOptions = watch('socialMediaOptions');
@@ -373,10 +330,6 @@ export default function Form() {
   };
 
   // ! Fix: Fix Submit button manually added
-
-  if (ispartner === 'partner') {
-    return redirect('/dashboard/');
-  }
 
   if (partnerId && isSubmitted) {
     return (
