@@ -789,7 +789,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useUser } from '@clerk/clerk-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -861,12 +860,16 @@ interface ProfileData {
   jobTitle?: string;
   partner?: Partner;
 }
+interface TabContentProps {
+  open: TabCategory;
+}
+type TabCategory = 'tc-history' | 'pc-history' | 'statistics' | 'reviews';
 
 const MemberProfile: React.FC = () => {
   const { isSignedIn, user } = useUser();
   const [profileData, setProfileData] = useState<ProfileData | null>(null);
   const [loading, setLoading] = useState(true);
-
+  const [open, setOpen] = useState<TabCategory>('tc-history');
   useEffect(() => {
     if (isSignedIn) {
       fetch('/api/v1/user-partner')
@@ -894,6 +897,10 @@ const MemberProfile: React.FC = () => {
   const memberCode = `${profileData.partner?.createdAt.split(
     'T'
   )[0]} - ${profileData.partner?.id.slice(0, 4)}`;
+
+  const handleTabOpen = (tabCategory: TabCategory) => {
+    setOpen(tabCategory);
+  };
 
   return (
     <div className="mx-auto max-w-242.5">
@@ -956,130 +963,39 @@ const MemberProfile: React.FC = () => {
       </div>
 
       <div className="mt-6.5">
-        <Tabs defaultValue="tc-history" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="tc-history">
-              Transaction Committee History
-            </TabsTrigger>
-            <TabsTrigger value="pc-history">
-              Program Committee History
-            </TabsTrigger>
-            <TabsTrigger value="statistics">Statistics</TabsTrigger>
-            <TabsTrigger value="reviews">Customer Reviews</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="tc-history">
-            <div className="rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
-              <h3 className="text-xl font-semibold mb-4">
-                Transaction Committee (TC) History
-              </h3>
-              <ScrollArea className="h-[300px]">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>TC Name</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Close Date</TableHead>
-                      <TableHead>Participant</TableHead>
-                      <TableHead>Transaction Amount</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {/* Replace with actual TC data when available */}
-                    <TableRow>
-                      <TableCell>TC1</TableCell>
-                      <TableCell>Active</TableCell>
-                      <TableCell>2023-12-31</TableCell>
-                      <TableCell>John Doe</TableCell>
-                      <TableCell>$100,000</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </ScrollArea>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="pc-history">
-            <div className="rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
-              <h3 className="text-xl font-semibold mb-4">
-                Program Committee (PC) History
-              </h3>
-              <ScrollArea className="h-[300px]">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>PC Name</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Topic</TableHead>
-                      <TableHead>Reason For Participation</TableHead>
-                      <TableHead>Impact On Industry</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {/* Replace with actual PC data when available */}
-                    <TableRow>
-                      <TableCell>PC1</TableCell>
-                      <TableCell>Active</TableCell>
-                      <TableCell>Market Trends</TableCell>
-                      <TableCell>Industry Expert</TableCell>
-                      <TableCell>High</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </ScrollArea>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="statistics">
-            <div className="rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
-              <h3 className="text-xl font-semibold mb-4">
-                Partner Member Statistics
-              </h3>
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart
-                  data={[
-                    { name: 'Closed Deals', value: 42 },
-                    { name: 'Avg. Transaction Value', value: 750000 },
-                    { name: 'Client Satisfaction', value: 98 },
-                    { name: 'Years of Experience', value: 15 },
-                  ]}
+        <div className="flex flex-col flex-wrap bg-gray-1 dark:bg-dark-2 md:flex-row">
+          {(['tc-history', 'pc-history', 'statistics', 'reviews'] as const).map(
+            (tab, index) => (
+              <button
+                key={tab}
+                onClick={() => handleTabOpen(tab)}
+                className={`group flex items-center border-b-2 px-6 py-3 text-sm font-medium md:text-base lg:px-12 lg:py-4 ${
+                  open === tab
+                    ? 'border-primary bg-primary/10 text-primary dark:border-primary'
+                    : 'border-gray-1 text-body-color hover:border-primary hover:bg-primary/10 hover:text-primary dark:border-dark-2 dark:hover:border-primary'
+                }`}
+              >
+                <span
+                  className={`mr-2 flex h-[30px] w-[30px] items-center justify-center rounded-full border text-sm ${
+                    open === tab
+                      ? 'border-primary bg-primary text-white'
+                      : 'border-stroke bg-transparent group-hover:border-primary group-hover:bg-primary group-hover:text-white dark:border-primary dark:text-primary'
+                  }`}
                 >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="value" fill="#8884d8" />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </TabsContent>
+                  0{index + 1}
+                </span>
+                {tab
+                  .split('-')
+                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(' ')}
+              </button>
+            )
+          )}
+        </div>
 
-          <TabsContent value="reviews">
-            <div className="rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
-              <h3 className="text-xl font-semibold mb-4">Customer Reviews</h3>
-              <ScrollArea className="h-[300px]">
-                {/* Replace with actual review data when available */}
-                <div className="space-y-4">
-                  <div className="p-4 border rounded">
-                    <p>Excellent service, highly recommended!</p>
-                    <p className="text-sm text-gray-500">Rating: 5/5</p>
-                    <p className="text-sm text-gray-500">
-                      Transaction: Luxury Home Sale
-                    </p>
-                  </div>
-                  <div className="p-4 border rounded">
-                    <p>Very knowledgeable and professional.</p>
-                    <p className="text-sm text-gray-500">Rating: 4/5</p>
-                    <p className="text-sm text-gray-500">
-                      Transaction: Commercial Property Lease
-                    </p>
-                  </div>
-                </div>
-              </ScrollArea>
-            </div>
-          </TabsContent>
-        </Tabs>
+        <div className="mt-4">
+          <TabContent open={open} />
+        </div>
       </div>
 
       <div className="mt-6.5 grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -1182,4 +1098,119 @@ const MemberProfile: React.FC = () => {
   );
 };
 
+const TabContent: React.FC<TabContentProps> = ({ open }) => {
+  switch (open) {
+    case 'tc-history':
+      return (
+        <div className="rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
+          <h3 className="text-xl font-semibold mb-4">
+            Transaction Committee (TC) History
+          </h3>
+          <ScrollArea className="h-[300px]">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>TC Name</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Close Date</TableHead>
+                  <TableHead>Participant</TableHead>
+                  <TableHead>Transaction Amount</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell>TC1</TableCell>
+                  <TableCell>Active</TableCell>
+                  <TableCell>2023-12-31</TableCell>
+                  <TableCell>John Doe</TableCell>
+                  <TableCell>$100,000</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </ScrollArea>
+        </div>
+      );
+    case 'pc-history':
+      return (
+        <div className="rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
+          <h3 className="text-xl font-semibold mb-4">
+            Program Committee (PC) History
+          </h3>
+          <ScrollArea className="h-[300px]">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>PC Name</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Topic</TableHead>
+                  <TableHead>Reason For Participation</TableHead>
+                  <TableHead>Impact On Industry</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell>PC1</TableCell>
+                  <TableCell>Active</TableCell>
+                  <TableCell>Market Trends</TableCell>
+                  <TableCell>Industry Expert</TableCell>
+                  <TableCell>High</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </ScrollArea>
+        </div>
+      );
+    case 'statistics':
+      return (
+        <div className="rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
+          <h3 className="text-xl font-semibold mb-4">
+            Partner Member Statistics
+          </h3>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart
+              data={[
+                { name: 'Closed Deals', value: 42 },
+                { name: 'Avg. Transaction Value', value: 750000 },
+                { name: 'Client Satisfaction', value: 98 },
+                { name: 'Years of Experience', value: 15 },
+              ]}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="value" fill="#8884d8" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      );
+    case 'reviews':
+      return (
+        <div className="rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
+          <h3 className="text-xl font-semibold mb-4">Customer Reviews</h3>
+          <ScrollArea className="h-[300px]">
+            <div className="space-y-4">
+              <div className="p-4 border rounded">
+                <p>Excellent service, highly recommended!</p>
+                <p className="text-sm text-gray-500">Rating: 5/5</p>
+                <p className="text-sm text-gray-500">
+                  Transaction: Luxury Home Sale
+                </p>
+              </div>
+              <div className="p-4 border rounded">
+                <p>Very knowledgeable and professional.</p>
+                <p className="text-sm text-gray-500">Rating: 4/5</p>
+                <p className="text-sm text-gray-500">
+                  Transaction: Commercial Property Lease
+                </p>
+              </div>
+            </div>
+          </ScrollArea>
+        </div>
+      );
+    default:
+      return null;
+  }
+};
 export default MemberProfile;
