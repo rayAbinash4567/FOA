@@ -804,6 +804,7 @@ import {
   YAxis,
 } from 'recharts';
 import Loader from '../common/Loader';
+import { BadgesItem } from '../common/ui/badge';
 
 interface SocialMedia {
   platform: string;
@@ -921,7 +922,9 @@ const MemberProfile: React.FC = () => {
                 </p>
                 <p>
                   <strong>Industry Discipline:</strong>{' '}
-                  {profileData.partner?.vocation}
+                  <BadgesItem roundedFull bgOpacity>
+                    {profileData.partner?.vocation}
+                  </BadgesItem>
                 </p>
                 <p>
                   <strong>Strategic Leadership Type:</strong>{' '}

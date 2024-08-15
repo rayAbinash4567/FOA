@@ -540,3 +540,18 @@ input[type='search']::-webkit-search-cancel-button {
   margin-bottom: 16px;
   transition: all 0.3s ease;
 }
+
+.ToastRoot {
+  background-color: white !important;
+  color: black !important;
+}
+
+.ToastRoot[data-variant='destructive'] {
+  background-color: rgb(220 38 38) !important;
+  color: white !important;
+}
+
+.ToastRoot[data-variant='success'] {
+  background-color: rgb(22 163 74) !important;
+  color: white !important;
+}

@@ -91,3 +91,29 @@ export async function getPartner() {
     throw error;
   }
 }
+
+// ^  Check for User : If user is partner or not
+
+// export async function fetchPartners() {
+//   try {
+//     const partners = await db.partner.findMany({
+//       select: {
+//         id: true,
+//         firstName: true,
+//         lastName: true,
+//         companyName: true,
+//         companySize: true,
+//         country: true,
+//         city: true,
+//         state: true,
+//         vocation: true,
+//         industry: true,
+//         // Add any other fields you need
+//       },
+//     });
+//     return partners;
+//   } catch (error) {
+//     console.error('Failed to fetch partners:', error);
+//     throw new Error('Failed to fetch partners');
+//   }
+// }

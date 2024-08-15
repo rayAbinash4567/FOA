@@ -135,6 +135,7 @@ import { currentUser } from '@clerk/nextjs/server';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import React from 'react';
+import { BadgesItem } from '../common/ui/badge';
 import { DeleteModal } from '../ui/DeleteModal';
 import TransactionButton from '../ui/transactionbutton';
 
@@ -162,7 +163,7 @@ const MemberTransactionsDetails: React.FC = async () => {
   //   where: { externalUserId: clerkUser.id },
   // });
 
-  const partner = clerkUser.publicMetadata.role;
+  const role = clerkUser?.publicMetadata?.role as string;
   const transactions = await getDocuments(
     clerkUser.emailAddresses[0].emailAddress
   );
@@ -178,7 +179,7 @@ const MemberTransactionsDetails: React.FC = async () => {
               Real Estate Transactions
             </h4>
           </div>
-          {clerkUser && (
+          {clerkUser && role === 'partner' && (
             <TransactionButton
               userId={clerkUser.id}
               email={clerkUser.emailAddresses[0].emailAddress}
@@ -256,7 +257,20 @@ const MemberTransactionsDetails: React.FC = async () => {
                         {dateConverter(transaction.lastConnectionAt) || '-'}
                       </td>
                       <td className="p-2 xl:p-3 text-center text-xs font-medium text-black dark:text-white">
-                        <DeleteModal roomId={transaction.id} />
+                        <div className="flex px-1 ">
+                          {role === 'partner' && (
+                            <DeleteModal
+                              roomId={transaction.id}
+                              currentUserId={clerkUser.id}
+                            />
+                          )}
+                          <Link
+                            href={`/dashboard/transactions/${transaction.id}`}
+                            className="hover:text-primary"
+                          >
+                            <BadgesItem roundedMd>View</BadgesItem>
+                          </Link>
+                        </div>
                       </td>
                     </tr>
                   )

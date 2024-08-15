@@ -32,6 +32,21 @@ const config: Config = {
         white: '#FFFFFF',
         black: '#1C2434',
         red: '#FB5454',
+        // Red variants
+        redLight: '#FF8080',
+        redDark: '#D43030',
+
+        // Green variants
+        green: '#4CAF50',
+        greenLight: '#81C784',
+        greenDark: '#388E3C',
+
+        // Additional shades
+        redPale: '#FFCDD2',
+        redDeep: '#B71C1C',
+        greenPale: '#C8E6C9',
+        greenDeep: '#1B5E20',
+
         'black-2': '#010101',
         body: '#64748B',
         bodydark: '#AEB7C0',

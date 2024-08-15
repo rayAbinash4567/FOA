@@ -5,6 +5,7 @@ import { useSelf } from '@liveblocks/react/suspense';
 import Image from 'next/image';
 import { useState } from 'react';
 
+import { useToast } from '@/components/ui/use-toast';
 import {
   Dialog,
   DialogContent,
@@ -17,7 +18,7 @@ import { Label } from '../common/ui/label';
 import Collaborator from './Collaborator';
 import UserTypeSelector from './UserType';
 import { Button } from './button';
-import { toast } from './use-toast';
+
 declare type UserType = 'creator' | 'editor' | 'viewer';
 
 declare type User = {
@@ -54,41 +55,50 @@ const ShareModal = ({
   const isValidEmail = (email: string) => {
     return /\S+@\S+\.\S+/.test(email);
   };
-
+  const { toast } = useToast();
   const shareDocumentHandler = async () => {
     setLoading(true);
     if (!email || !isValidEmail(email)) {
       toast({
-        title: 'Error',
-        description: 'Please enter an valid email address',
+        title: 'Uh oh! Something went wrong.',
+        description: 'Please enter a valid email address',
         variant: 'destructive',
       });
       setLoading(false);
-      return; // Add this to prevent further execution
+      return;
     }
 
     try {
-      await updateDocumentAccess({
+      const result = await updateDocumentAccess({
         roomId,
         email,
         userType: userType as UserType,
         updatedBy: user.info,
       });
-      toast({
-        title: 'Success',
-        description: 'Document access updated successfully',
-        variant: 'default',
-      });
-      setEmail(''); // Clear the email input
-      setSuccess('Document access updated successfully');
+
+      if (result && !result.success) {
+        toast({
+          title: 'Uh oh! Something went wrong.',
+          description: result.message,
+          variant: 'destructive',
+        });
+      } else if (result) {
+        toast({
+          title: 'Success',
+          description: 'Document access updated successfully',
+          variant: 'success',
+        });
+        setEmail('');
+      } else {
+        throw new Error('Unexpected response from server');
+      }
     } catch (error) {
       console.error('Error updating document access:', error);
       toast({
-        title: 'Error',
+        title: 'Uh oh! Something went wrong.',
         description: 'Failed to update document access',
         variant: 'destructive',
       });
-      setError('Failed to update document access');
     } finally {
       setLoading(false);
     }

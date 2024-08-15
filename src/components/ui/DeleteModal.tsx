@@ -1,9 +1,8 @@
 'use client';
 
+import { deleteDocument } from '@/lib/actions/room.actions';
 import Image from 'next/image';
 import { useState } from 'react';
-
-import { deleteDocument } from '@/lib/actions/room.actions';
 
 import {
   Dialog,
@@ -16,36 +15,53 @@ import {
   DialogTrigger,
 } from '../common/ui/dialog';
 import { Button } from './button';
-declare type DeleteModalProps = { roomId: string };
-export const DeleteModal = ({ roomId }: DeleteModalProps) => {
+import { toast } from './use-toast';
+declare type DeleteModalProps = { roomId: string; currentUserId: string };
+export const DeleteModal = ({ roomId, currentUserId }: DeleteModalProps) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-
   const deleteDocumentHandler = async () => {
     setLoading(true);
 
     try {
-      await deleteDocument(roomId);
-      setOpen(false);
-    } catch (error) {
-      console.log('Error notif:', error);
-    }
+      const result = await deleteDocument(roomId, currentUserId);
 
-    setLoading(false);
+      if (result.success) {
+        setOpen(false);
+        toast({
+          title: 'Success',
+          description: 'Document deleted successfully',
+          variant: 'success',
+        });
+      } else {
+        toast({
+          title: 'Error',
+          description: result.message,
+          variant: 'destructive',
+        });
+      }
+    } catch (error: unknown) {
+      console.error('Error deleting document:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to delete the document. Please try again.',
+        variant: 'destructive',
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className=" px-2">
-          <Image
-            src="/images/assets/icons/delete.svg"
-            alt="delete"
-            width={20}
-            height={20}
-            className="mt-1 bg-slate-100 bg-none"
-          />
-        </Button>
+        <Image
+          src="/images/assets/icons/delete.svg"
+          alt="delete"
+          width={28}
+          height={28}
+          className="cursor-pointer mx-2"
+        />
       </DialogTrigger>
       <DialogContent className="px-4">
         <DialogHeader>

@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import UserTypeSelector from './UserType';
 import { Button } from './button';
+import { toast } from './use-toast';
 declare type UserType = 'creator' | 'editor' | 'viewer';
 declare type User = {
   id: string;
@@ -34,25 +35,65 @@ const Collaborator = ({
   const [loading, setLoading] = useState(false);
   //   console.log('collaborator', +' ' + creatorId, +' ' + collaborator.id);
 
+  // const shareDocumentHandler = async (type: string) => {
+  //   setLoading(true);
+
+  //   await updateDocumentAccess({
+  //     roomId,
+  //     email,
+  //     userType: type as UserType,
+  //     updatedBy: user,
+  //   });
+
+  //   setLoading(false);
+  // };
   const shareDocumentHandler = async (type: string) => {
     setLoading(true);
 
-    await updateDocumentAccess({
-      roomId,
-      email,
-      userType: type as UserType,
-      updatedBy: user,
-    });
-
-    setLoading(false);
+    try {
+      await updateDocumentAccess({
+        roomId,
+        email,
+        userType: type as UserType,
+        updatedBy: user,
+      });
+      toast({
+        title: 'Success',
+        description: 'Document access updated successfully',
+        variant: 'success',
+      });
+    } catch (error) {
+      console.error('Error updating document access:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to update document access',
+        variant: 'destructive',
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const removeCollaboratorHandler = async (email: string) => {
     setLoading(true);
 
-    await removeCollaborator({ roomId, email });
-
-    setLoading(false);
+    try {
+      await removeCollaborator({ roomId, email });
+      toast({
+        title: 'Success',
+        description: 'Collaborator removed successfully',
+        variant: 'default',
+      });
+    } catch (error) {
+      console.error('Error removing collaborator:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to remove collaborator',
+        variant: 'destructive',
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

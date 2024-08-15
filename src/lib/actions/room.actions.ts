@@ -1,4 +1,5 @@
 'use server';
+import { clerkClient } from '@clerk/nextjs/server';
 import { RoomAccesses } from '@liveblocks/node';
 import { nanoid } from 'nanoid';
 import { revalidatePath } from 'next/cache';
@@ -107,6 +108,22 @@ export const updateDocumentAccess = async ({
   updatedBy,
 }: ShareDocumentParams) => {
   try {
+    // Check if the user is registered with Clerk
+    const response = await clerkClient.users.getUserList({
+      emailAddress: [email],
+    });
+    const users = response.data; // 'data' contains the array of users
+
+    if (users.length > 0) {
+      const user = users[0]; // Assuming you only want the first match
+      console.log('User found:', user);
+    } else {
+      return {
+        success: false,
+        message: `User is not registered in Pinnacle Partnerships. Please ask them to sign up.`,
+      };
+    }
+
     const usersAccesses: RoomAccesses = {
       [email]: getAccessType(userType) as AccessType,
     };
@@ -131,14 +148,47 @@ export const updateDocumentAccess = async ({
         },
         roomId,
       });
+      revalidatePath(`/dashboard/transactions/${roomId}`);
+      return {
+        success: true,
+        message: 'Access granted successfully.',
+      };
     }
+  } catch (error: unknown) {
+    console.error('Error in updateDocumentAccess:', error);
 
-    revalidatePath(`/dashboard/transactions/${roomId}`);
-    return parseStringify(room);
-  } catch (error) {
-    console.log(`Error happened while updating a room access: ${error}`);
+    const errorMessage =
+      error instanceof Error ? error.message : 'An unknown error occurred.';
+    return { success: false, message: errorMessage };
   }
 };
+
+// export const removeCollaborator = async ({
+//   roomId,
+//   email,
+// }: {
+//   roomId: string;
+//   email: string;
+// }) => {
+//   try {
+//     const room = await liveblocks.getRoom(roomId);
+
+//     if (room.metadata.email === email) {
+//       throw new Error('You cannot remove yourself from the document');
+//     }
+
+//     const updatedRoom = await liveblocks.updateRoom(roomId, {
+//       usersAccesses: {
+//         [email]: null,
+//       },
+//     });
+
+//     revalidatePath(`/dashboard/transactions/${roomId}`);
+//     return parseStringify(updatedRoom);
+//   } catch (error) {
+//     console.log(`Error happened while removing a collaborator: ${error}`);
+//   }
+// };
 
 export const removeCollaborator = async ({
   roomId,
@@ -161,18 +211,34 @@ export const removeCollaborator = async ({
     });
 
     revalidatePath(`/dashboard/transactions/${roomId}`);
+
     return parseStringify(updatedRoom);
-  } catch (error) {
+  } catch (error: unknown) {
     console.log(`Error happened while removing a collaborator: ${error}`);
   }
 };
-
-export const deleteDocument = async (roomId: string) => {
+export const deleteDocument = async (roomId: string, currentUserId: string) => {
   try {
+    const room = await liveblocks.getRoom(roomId);
+
+    // Check if the current user is the creator of the document
+    if (room.metadata.creatorId !== currentUserId) {
+      throw new Error(
+        'You cannot delete this document as you are not the creator.'
+      );
+    }
+
     await liveblocks.deleteRoom(roomId);
-    revalidatePath('/dashboard/membertransactions');
-    redirect('/dashboard/membertransactions');
-  } catch (error) {
-    console.log(`Error happened while deleting a room: ${error}`);
+    revalidatePath(`/dashboard/transactions/${roomId}`);
+
+    // Return success status
+    return { success: true };
+  } catch (error: unknown) {
+    console.error('Error in deleteDocument:', error);
+
+    // Provide a more detailed error message
+    const errorMessage =
+      error instanceof Error ? error.message : 'An unknown error occurred.';
+    return { success: false, message: errorMessage };
   }
 };

@@ -199,6 +199,7 @@
 
 import Image from 'next/image';
 import React from 'react';
+import { BadgesItem } from '../common/ui/badge';
 
 interface MemberCardProps {
   name: string;
@@ -252,7 +253,9 @@ const MemberCard: React.FC<MemberCardProps> = ({
           {companySize} | {location}
         </p>
         <p className="mt-2 text-xs text-body-color dark:text-dark-6">
-          {services.join(', ')}
+          <BadgesItem roundedFull bgOpacity>
+            {services.join(', ')}{' '}
+          </BadgesItem>
         </p>
         {rating && (
           <p className="mt-1 text-sm font-semibold text-yellow-500">
@@ -286,7 +289,7 @@ const MemberCard: React.FC<MemberCardProps> = ({
             <strong className="text-dark dark:text-white">200</strong> Following
           </span>
         </div>
-        <div className="mt-3 flex justify-center space-x-2">
+        <div className="mt-3 flex justify-around space-x-2">
           <button className="rounded bg-blue-600 px-3 py-1 text-xs text-white hover:bg-blue-700">
             Add friend
           </button>
