@@ -1,49 +1,65 @@
-import { members } from '@/db/temp'; // Ensure the import path is correct
 import React, { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 
-interface FilterComponentProps {
-  onFilterChange: (filters: Record<string, string>) => void;
+interface MemberCardDatas {
+  id: string;
+  name: string;
+  vocation: string[] | string;
+  companyName: string;
+  companySize: string;
+  city: string;
+  imageUrl: string;
 }
 
-const MemberFilter: React.FC<FilterComponentProps> = ({ onFilterChange }) => {
-  const [filters, setFilters] = useState<Record<string, string>>({});
-  const [servicesList, setServicesList] = useState<string[]>([]);
-  const [industryList, setIndustryList] = useState<string[]>([]);
+interface FilterComponentProps {
+  onFilterChange: (filters: Partial<MemberCardDatas>) => void;
+  allMembers: MemberCardDatas[];
+}
+
+const MemberFilter: React.FC<FilterComponentProps> = ({
+  onFilterChange,
+  allMembers,
+}) => {
+  const [filters, setFilters] = useState<Partial<MemberCardDatas>>({});
+  const [vocationList, setVocationList] = useState<string[]>([]);
+  const [companySizes, setCompanySizes] = useState<string[]>([]);
+  const [cities, setCities] = useState<string[]>([]);
 
   useEffect(() => {
-    const allServices = new Set<string>();
-    const allIndustries = new Set<string>();
+    const allVocations = new Set<string>();
+    const allCompanySizes = new Set<string>();
+    const allCities = new Set<string>();
 
-    members.forEach((member) => {
-      member.services.forEach((service) => allServices.add(service));
-      if (member.industry) {
-        allIndustries.add(member.industry);
+    allMembers.forEach((member) => {
+      if (Array.isArray(member.vocation)) {
+        member.vocation.forEach((voc) => allVocations.add(voc));
+      } else {
+        allVocations.add(member.vocation);
       }
+      allCompanySizes.add(member.companySize);
+      allCities.add(member.city);
     });
 
-    setServicesList(Array.from(allServices).sort());
-    setIndustryList(Array.from(allIndustries).sort());
-  }, []);
+    setVocationList(Array.from(allVocations).sort());
+    setCompanySizes(Array.from(allCompanySizes).sort());
+    setCities(Array.from(allCities).sort());
+  }, [allMembers]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
   ) => {
     const { name, value } = e.target;
-    const normalizedValue = value.toLowerCase();
-    // const normalizedValue =
-    // name === 'services' || name === 'industry' ? value.toLowerCase() : value;
-    const updatedFilters = { ...filters, [name]: normalizedValue };
-    // const updatedFilters = { ...filters, [name]: value };
+    const updatedFilters = { ...filters, [name]: value };
     setFilters(updatedFilters);
-    onFilterChange(updatedFilters); // Immediate update to parent component
+    onFilterChange(updatedFilters);
   };
 
   const resetFilters = () => {
     const resetState = {};
     setFilters(resetState);
-    onFilterChange(resetState); // Notifying the parent component to clear filters
+    onFilterChange(resetState);
   };
+
   const areFiltersSet = () => {
     return Object.values(filters).some((value) => value !== '');
   };
@@ -52,93 +68,64 @@ const MemberFilter: React.FC<FilterComponentProps> = ({ onFilterChange }) => {
     <div className="p-4 my-2 rounded-sm border border-stroke bg-white px-5 pb-8 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-6">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div>
-          <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200 ">
+          <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
             Company Size
           </label>
           <select
             name="companySize"
             onChange={handleChange}
-            className="block w-full border-stroke px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-gray-300  dark:border-strokedark dark:bg-boxdark"
+            className="block w-full border-stroke px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-gray-300 dark:border-strokedark dark:bg-boxdark"
           >
             <option value="">All</option>
-            <option value="10-50 employees">10-50 employees</option>
-            <option value="50-200 employees">50-200 employees</option>
-            <option value="5-10 employees">5-10 employees</option>
-          </select>
-        </div>
-        <div>
-          <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
-            Location
-          </label>
-          <input
-            type="text"
-            name="location"
-            onChange={handleChange}
-            className="block w-full px-3 py-2 dark:border-strokedark dark:bg-boxdark border-stroke border rounded-md dark:bg-gray-700 dark:text-gray-300 "
-            placeholder="Enter location"
-          />
-        </div>
-        <div>
-          <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
-            Services
-          </label>
-          <select
-            name="services"
-            onChange={handleChange}
-            className="block w-full border-stroke  dark:bg-boxdark px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-gray-300 dark:border-strokedark"
-          >
-            <option value="">All Services</option>
-            {servicesList.map((service, index) => (
-              <option key={index} value={service}>
-                {service}
+            {companySizes.map((size, index) => (
+              <option key={index} value={size}>
+                {size}
               </option>
             ))}
           </select>
         </div>
         <div>
           <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
-            Rating
+            City
           </label>
           <select
-            name="rating"
+            name="city"
             onChange={handleChange}
-            className="block w-full border-stroke px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-gray-300  dark:border-strokedark dark:bg-boxdark"
+            className="block w-full border-stroke px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-gray-300 dark:border-strokedark dark:bg-boxdark"
           >
             <option value="">All</option>
-            <option value="1">1 Star</option>
-            <option value="2">2 Stars</option>
-            <option value="3">3 Stars</option>
-            <option value="4">4 Stars</option>
-            <option value="5">5 Stars</option>
+            {cities.map((city, index) => (
+              <option key={index} value={city}>
+                {city}
+              </option>
+            ))}
           </select>
         </div>
         <div>
           <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
-            Industry
+            Vocation
           </label>
           <select
-            name="industry"
+            name="vocation"
             onChange={handleChange}
-            className="block w-full  dark:bg-boxdark border-stroke px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-gray-300 dark:border-strokedark"
+            className="block w-full border-stroke dark:bg-boxdark px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-gray-300 dark:border-strokedark"
           >
-            <option value="">All Industries</option>
-            {industryList.map((industry, index) => (
-              <option key={index} value={industry}>
-                {industry}
+            <option value="">All Vocations</option>
+            {vocationList.map((vocation, index) => (
+              <option key={index} value={vocation}>
+                {vocation}
               </option>
             ))}
           </select>
         </div>
         {areFiltersSet() && (
-          <>
-            <Button
-              onClick={resetFilters}
-              variant={'default'}
-              className="text-m text-white md:mt-6 "
-            >
-              Reset All Filters
-            </Button>
-          </>
+          <Button
+            onClick={resetFilters}
+            variant={'default'}
+            className="text-m text-white md:mt-6"
+          >
+            Reset All Filters
+          </Button>
         )}
       </div>
     </div>

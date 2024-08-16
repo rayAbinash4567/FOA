@@ -20,6 +20,8 @@ model User {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   partner        Partner?
+ 
+
 }
 
 model Partner {
@@ -56,6 +58,8 @@ model Partner {
   marketingOptions            Json
   additionalMarketingInfoFields Json?
   agreeToTerms                Boolean
+   rating         Int?
+  industry       String?
   createdAt                   DateTime @default(now())
   updatedAt                   DateTime @updatedAt
 }
