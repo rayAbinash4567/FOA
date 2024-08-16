@@ -1,5 +1,4 @@
 import DefaultLayout from '@/components/Layouts/DefaultLayout';
-import MyPartners from '@/components/MyPartners';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -10,7 +9,8 @@ export const metadata: Metadata = {
 const MemberDirectoryLayout = () => {
   return (
     <DefaultLayout>
-      <MyPartners />
+      {/* <MyPartners /> */}
+      Nothing here yet
     </DefaultLayout>
   );
 };
