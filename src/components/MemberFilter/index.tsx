@@ -1,10 +1,11 @@
+'use client';
 import React, { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 
 interface MemberCardDatas {
   id: string;
   name: string;
-  vocation: string[] | string;
+  vocation: string;
   companyName: string;
   companySize: string;
   city: string;
@@ -26,43 +27,44 @@ const MemberFilter: React.FC<FilterComponentProps> = ({
   const [cities, setCities] = useState<string[]>([]);
 
   useEffect(() => {
-    const allVocations = new Set<string>();
-    const allCompanySizes = new Set<string>();
-    const allCities = new Set<string>();
+    if (allMembers.length > 0) {
+      const allVocations = new Set<string>();
+      const allCompanySizes = new Set<string>();
+      const allCities = new Set<string>();
 
-    allMembers.forEach((member) => {
-      if (Array.isArray(member.vocation)) {
-        member.vocation.forEach((voc) => allVocations.add(voc));
-      } else {
-        allVocations.add(member.vocation);
-      }
-      allCompanySizes.add(member.companySize);
-      allCities.add(member.city);
-    });
+      allMembers.forEach((member) => {
+        if (Array.isArray(member.vocation)) {
+          member.vocation.forEach((voc) => allVocations.add(voc));
+        } else {
+          allVocations.add(member.vocation);
+        }
+        allCompanySizes.add(member.companySize);
+        allCities.add(member.city);
+      });
 
-    setVocationList(Array.from(allVocations).sort());
-    setCompanySizes(Array.from(allCompanySizes).sort());
-    setCities(Array.from(allCities).sort());
+      setVocationList(Array.from(allVocations).sort());
+      setCompanySizes(Array.from(allCompanySizes).sort());
+      setCities(Array.from(allCities).sort());
+    }
   }, [allMembers]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
   ) => {
     const { name, value } = e.target;
-    const updatedFilters = { ...filters, [name]: value };
+    const updatedFilters = { ...filters, [name]: value || undefined };
     setFilters(updatedFilters);
     onFilterChange(updatedFilters);
   };
 
   const resetFilters = () => {
-    const resetState = {};
-    setFilters(resetState);
-    onFilterChange(resetState);
+    setFilters({});
+    onFilterChange({});
   };
 
-  const areFiltersSet = () => {
-    return Object.values(filters).some((value) => value !== '');
-  };
+  const areFiltersSet = Object.values(filters).some(
+    (value) => value !== undefined
+  );
 
   return (
     <div className="p-4 my-2 rounded-sm border border-stroke bg-white px-5 pb-8 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-6">
@@ -73,6 +75,7 @@ const MemberFilter: React.FC<FilterComponentProps> = ({
           </label>
           <select
             name="companySize"
+            value={filters.companySize || ''}
             onChange={handleChange}
             className="block w-full border-stroke px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-gray-300 dark:border-strokedark dark:bg-boxdark"
           >
@@ -90,6 +93,7 @@ const MemberFilter: React.FC<FilterComponentProps> = ({
           </label>
           <select
             name="city"
+            value={filters.city || ''}
             onChange={handleChange}
             className="block w-full border-stroke px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-gray-300 dark:border-strokedark dark:bg-boxdark"
           >
@@ -107,6 +111,7 @@ const MemberFilter: React.FC<FilterComponentProps> = ({
           </label>
           <select
             name="vocation"
+            value={filters.vocation || ''}
             onChange={handleChange}
             className="block w-full border-stroke dark:bg-boxdark px-3 py-2 border rounded-md dark:bg-gray-700 dark:text-gray-300 dark:border-strokedark"
           >
@@ -118,16 +123,18 @@ const MemberFilter: React.FC<FilterComponentProps> = ({
             ))}
           </select>
         </div>
-        {areFiltersSet() && (
+      </div>
+      {areFiltersSet && (
+        <div className="flex justify-end mt-4">
           <Button
             onClick={resetFilters}
-            variant={'default'}
-            className="text-m text-white md:mt-6"
+            variant="default"
+            className="text-m text-white"
           >
             Reset All Filters
           </Button>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

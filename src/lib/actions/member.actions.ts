@@ -1,51 +1,35 @@
-// app/lib/getPartnerData.ts
-// Adjust this import based on your Prisma client setup
+// app/actions/fetchMembers.ts
+'use server';
+
 import { db } from '@/db/db';
-import { Partner, User } from '@prisma/client';
 
 export interface MemberCardData {
   id: string;
   name: string;
+  vocation: string;
   companyName: string;
   companySize: string;
   city: string;
-  vocation: string[];
   imageUrl: string;
-  rating?: number;
-  industry?: string;
 }
 
-function transformPartnerToMemberCardData(
-  partner: Partner & { user: User }
-): MemberCardData {
-  return {
-    id: partner.id,
-    name: `${partner.user.firstName} ${partner.user.lastName}`,
-    companyName: partner.companyName,
-    companySize: partner.companySize,
-    city: `${partner.city}, ${partner.state}`,
-    vocation: [
-      partner.vocation,
-      partner.subVocation,
-      partner.otherVocation,
-    ].filter(Boolean) as string[],
-    imageUrl: partner.user.imageUrl || '/default-avatar.png',
-    rating: partner.rating ?? undefined,
-    industry: partner.industry ?? undefined,
-  };
+export async function fetchMembers(): Promise<MemberCardData[]> {
+  try {
+    const dbPartners = await db.partner.findMany({
+      include: { user: true },
+    });
+
+    return dbPartners.map((partner) => ({
+      id: partner.id,
+      name: `${partner.user.firstName} ${partner.user.lastName}`,
+      vocation: partner.vocation, // Directly assign the vocation as a string
+      companyName: partner.companyName,
+      companySize: partner.companySize,
+      city: partner.city,
+      imageUrl: partner.user.imageUrl || '/default-avatar.png',
+    }));
+  } catch (error) {
+    console.error('Error fetching members:', error);
+    throw new Error('Failed to fetch members');
+  }
 }
-
-
-export async function getPartnerData(
-  partnerId: string
-): Promise<MemberCardData | null> {
-  const partner = await db.partner.findUnique({
-    where: { id: partnerId },
-    include: { user: true },
-  });
-
-  if (!partner) return null;
-
-  return transformPartnerToMemberCardData(partner);
-}
-

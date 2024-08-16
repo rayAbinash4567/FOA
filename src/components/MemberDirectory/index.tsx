@@ -1,16 +1,14 @@
 'use client';
-
 import MemberCard from '@/components/MemberCard';
 import MemberFilter from '@/components/MemberFilter';
 import Pagination from '@/components/Pagination';
 import React, { useEffect, useState } from 'react';
 import Breadcrumb from '../Breadcrumbs/Breadcrumb';
-import Loader from '../common/Loader';
 
 interface MemberCardData {
   id: string;
   name: string;
-  vocation: string[] | string;
+  vocation: string;
   companyName: string;
   companySize: string;
   city: string;
@@ -18,36 +16,29 @@ interface MemberCardData {
 }
 
 const MemberDirectory: React.FC = () => {
-  const [allMembers, setAllMembers] = useState<MemberCardData[]>([]);
+  const [initialMembers, setInitialMembers] = useState<MemberCardData[]>([]);
   const [filteredMembers, setFilteredMembers] = useState<MemberCardData[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [membersPerPage] = useState(8);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchMembers = async () => {
-      setIsLoading(true);
+    // Fetch data from API or other source
+    async function fetchData() {
       try {
-        const response = await fetch('/api/v1/member');
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch members');
-        }
+        const response = await fetch('/api/v1/member'); // Replace with your data source
         const data = await response.json();
-        setAllMembers(data);
+        setInitialMembers(data);
         setFilteredMembers(data);
       } catch (error) {
-        console.error('Error fetching members:', error);
-      } finally {
-        setIsLoading(false);
+        console.error('Failed to fetch members:', error);
       }
-    };
+    }
 
-    fetchMembers();
+    fetchData();
   }, []);
 
   const handleFilterChange = (filters: Partial<MemberCardData>) => {
-    const newFilteredMembers = allMembers.filter((member) =>
+    const newFilteredMembers = initialMembers.filter((member) =>
       Object.entries(filters).every(([key, value]) => {
         const memberValue = member[key as keyof MemberCardData];
         if (Array.isArray(memberValue)) {
@@ -67,23 +58,17 @@ const MemberDirectory: React.FC = () => {
 
   const indexOfLastMember = currentPage * membersPerPage;
   const indexOfFirstMember = indexOfLastMember - membersPerPage;
-  const currentMembers = filteredMembers.slice(
-    indexOfFirstMember,
-    indexOfLastMember
-  );
+  const currentMembers =
+    filteredMembers?.slice(indexOfFirstMember, indexOfLastMember) || [];
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-
-  if (isLoading) {
-    return <Loader />;
-  }
 
   return (
     <div className="mx-auto max-w-7xl">
       <Breadcrumb pageName="Directory" />
       <MemberFilter
         onFilterChange={handleFilterChange}
-        allMembers={allMembers}
+        allMembers={initialMembers}
       />
 
       <div className="grid mt-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -102,7 +87,7 @@ const MemberDirectory: React.FC = () => {
 
       <Pagination
         currentPage={currentPage}
-        totalPages={Math.ceil(filteredMembers.length / membersPerPage)}
+        totalPages={Math.ceil(filteredMembers?.length / membersPerPage)}
         onPageChange={paginate}
       />
     </div>
