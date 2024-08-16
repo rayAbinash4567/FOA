@@ -35,8 +35,8 @@ const MyClients: React.FC = () => {
             name={member.name}
             companyName={member.companyName}
             companySize={member.companySize}
-            location={member.location}
-            services={member.services}
+            city={member.location}
+            vocation={member.services}
             imageUrl={member.imageUrl}
           />
         ))}
