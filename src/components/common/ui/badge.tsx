@@ -23,9 +23,10 @@ export const BadgesItem: React.FC<BadgesItemProps> = ({
   roundedMd = false,
   bgOpacity = false,
 }) => {
-  const baseClasses = 'inline-block rounded py-1 px-2.5 text-xs font-medium';
+  const baseClasses =
+    'inline-block dark:text-white text-primary rounded py-1 px-2.5 text-xs font-medium';
   const outlineClasses = outline
-    ? 'border border-primary text-primary'
+    ? 'border border-primary dark:text-white text-primary'
     : 'bg-primary text-white';
   const roundedClasses =
     (roundedFull && 'rounded-full') ||

@@ -29,13 +29,13 @@ export const DeleteModal = ({ roomId, currentUserId }: DeleteModalProps) => {
       if (result.success) {
         setOpen(false);
         toast({
-          title: 'Success',
+          title: 'Action Successful...',
           description: 'Document deleted successfully',
           variant: 'success',
         });
       } else {
         toast({
-          title: 'Error',
+          title: 'Uh oh! Something went wrong...',
           description: result.message,
           variant: 'destructive',
         });
@@ -43,7 +43,7 @@ export const DeleteModal = ({ roomId, currentUserId }: DeleteModalProps) => {
     } catch (error: unknown) {
       console.error('Error deleting document:', error);
       toast({
-        title: 'Error',
+        title: 'Uh oh! Something went wrong...',
         description: 'Failed to delete the document. Please try again.',
         variant: 'destructive',
       });

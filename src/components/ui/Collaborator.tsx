@@ -4,6 +4,7 @@ import {
 } from '@/lib/actions/room.actions';
 import Image from 'next/image';
 import { useState } from 'react';
+import { BadgesItem } from '../common/ui/badge';
 import UserTypeSelector from './UserType';
 import { Button } from './button';
 import { toast } from './use-toast';
@@ -33,20 +34,7 @@ const Collaborator = ({
 }: CollaboratorProps) => {
   const [userType, setUserType] = useState(collaborator.userType || 'viewer');
   const [loading, setLoading] = useState(false);
-  //   console.log('collaborator', +' ' + creatorId, +' ' + collaborator.id);
 
-  // const shareDocumentHandler = async (type: string) => {
-  //   setLoading(true);
-
-  //   await updateDocumentAccess({
-  //     roomId,
-  //     email,
-  //     userType: type as UserType,
-  //     updatedBy: user,
-  //   });
-
-  //   setLoading(false);
-  // };
   const shareDocumentHandler = async (type: string) => {
     setLoading(true);
 
@@ -58,14 +46,14 @@ const Collaborator = ({
         updatedBy: user,
       });
       toast({
-        title: 'Success',
+        title: 'Action Successful...',
         description: 'Document access updated successfully',
         variant: 'success',
       });
     } catch (error) {
       console.error('Error updating document access:', error);
       toast({
-        title: 'Error',
+        title: 'Uh oh! Something went wrong..',
         description: 'Failed to update document access',
         variant: 'destructive',
       });
@@ -80,15 +68,15 @@ const Collaborator = ({
     try {
       await removeCollaborator({ roomId, email });
       toast({
-        title: 'Success',
-        description: 'Collaborator removed successfully',
-        variant: 'default',
+        title: 'Action Successful...',
+        description: 'Collaborator removed successfully.',
+        variant: 'success',
       });
     } catch (error) {
       console.error('Error removing collaborator:', error);
       toast({
-        title: 'Error',
-        description: 'Failed to remove collaborator',
+        title: 'Uh oh! Something went wrong...',
+        description: 'Failed to remove collaborator.',
         variant: 'destructive',
       });
     } finally {
@@ -120,11 +108,13 @@ const Collaborator = ({
       </div>
 
       {creatorId === collaborator.id ? (
-        <p className="text-sm  font-bold bg-green-400 rounded-md px-2 py-1 text-white">
-          Leader
+        <p className="text-sm text-black  font-bold bg-green-400 rounded-md px-2 py-1  dark:text-white">
+          <BadgesItem outline roundedMd>
+            Leader
+          </BadgesItem>
         </p>
       ) : (
-        <div className="flex items-center">
+        <div className="flex justify-around items-center">
           <UserTypeSelector
             userType={userType as UserType}
             setUserType={setUserType || 'viewer'}
@@ -132,7 +122,7 @@ const Collaborator = ({
           />
           <Button
             type="button"
-            className="px-4 flex h-9 gap-1 min-w-20 text-white font-bold py-4"
+            className="px-4 flex mx-2  h-9 gap-1 min-w-20 text-white font-bold py-4"
             onClick={() => removeCollaboratorHandler(collaborator.email)}
           >
             Remove

@@ -3,7 +3,6 @@ import { clerkClient } from '@clerk/nextjs/server';
 import { RoomAccesses } from '@liveblocks/node';
 import { nanoid } from 'nanoid';
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 import { liveblocks } from '../liveblocks';
 import { getAccessType, parseStringify } from '../utils';
 declare type CreateDocumentParams = {
@@ -66,8 +65,8 @@ export const getDocument = async ({
     const hasAccess = Object.keys(room.usersAccesses).includes(userId);
 
     if (!hasAccess) {
-      redirect('/dashboard/membertransactions');
-      // throw new Error('You do not have access to this document');
+      // throw new Error('You cannot change access for  yourself ');
+      throw new Error('You do not have access to this document');
     }
 
     return parseStringify(room);
@@ -112,15 +111,23 @@ export const updateDocumentAccess = async ({
     const response = await clerkClient.users.getUserList({
       emailAddress: [email],
     });
-    const users = response.data; // 'data' contains the array of users
+    const users = response.data;
 
-    if (users.length > 0) {
-      const user = users[0]; // Assuming you only want the first match
-      console.log('User found:', user);
-    } else {
+    if (users.length === 0) {
       return {
         success: false,
-        message: `User is not registered in Pinnacle Partnerships. Please ask them to sign up.`,
+        message: `User is not registered in Pinnacle Partnerships. Please ask them to sign up first.`,
+      };
+    }
+
+    // Fetch the room details first
+    const room = await liveblocks.getRoom(roomId);
+
+    // Check if the email is the transaction leader's email
+    if (room.metadata.email === email) {
+      return {
+        success: false,
+        message: 'You cannot change access for the transaction leader.',
       };
     }
 
@@ -128,11 +135,12 @@ export const updateDocumentAccess = async ({
       [email]: getAccessType(userType) as AccessType,
     };
 
-    const room = await liveblocks.updateRoom(roomId, {
+    // Update the room access
+    const updatedRoom = await liveblocks.updateRoom(roomId, {
       usersAccesses,
     });
 
-    if (room) {
+    if (updatedRoom) {
       const notificationId = nanoid();
 
       await liveblocks.triggerInboxNotification({
@@ -141,6 +149,7 @@ export const updateDocumentAccess = async ({
         subjectId: notificationId,
         activityData: {
           userType,
+          heading: `${updatedBy.name} invited you. `,
           title: `You have been granted ${userType} access to the document by ${updatedBy.name}`,
           updatedBy: updatedBy.name,
           avatar: updatedBy.avatar,
@@ -153,6 +162,8 @@ export const updateDocumentAccess = async ({
         success: true,
         message: 'Access granted successfully.',
       };
+    } else {
+      throw new Error('Failed to update room access.');
     }
   } catch (error: unknown) {
     console.error('Error in updateDocumentAccess:', error);
@@ -162,33 +173,6 @@ export const updateDocumentAccess = async ({
     return { success: false, message: errorMessage };
   }
 };
-
-// export const removeCollaborator = async ({
-//   roomId,
-//   email,
-// }: {
-//   roomId: string;
-//   email: string;
-// }) => {
-//   try {
-//     const room = await liveblocks.getRoom(roomId);
-
-//     if (room.metadata.email === email) {
-//       throw new Error('You cannot remove yourself from the document');
-//     }
-
-//     const updatedRoom = await liveblocks.updateRoom(roomId, {
-//       usersAccesses: {
-//         [email]: null,
-//       },
-//     });
-
-//     revalidatePath(`/dashboard/transactions/${roomId}`);
-//     return parseStringify(updatedRoom);
-//   } catch (error) {
-//     console.log(`Error happened while removing a collaborator: ${error}`);
-//   }
-// };
 
 export const removeCollaborator = async ({
   roomId,
@@ -224,7 +208,7 @@ export const deleteDocument = async (roomId: string, currentUserId: string) => {
     // Check if the current user is the creator of the document
     if (room.metadata.creatorId !== currentUserId) {
       throw new Error(
-        'You cannot delete this document as you are not the creator.'
+        'You cannot delete this document as you are not the creator.Please ask the transaction leader to remove you from the transaction.'
       );
     }
 
