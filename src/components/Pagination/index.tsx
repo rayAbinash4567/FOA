@@ -88,3 +88,6 @@ const Pagination: React.FC<PaginationProps> = ({
 };
 
 export default Pagination;
+
+// components/Pagination.tsx
+// components/Pagination.tsx

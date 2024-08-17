@@ -1,7 +1,7 @@
-// app/actions/fetchMembers.ts
 'use server';
 
 import { db } from '@/db/db';
+import { revalidatePath } from 'next/cache';
 
 export interface MemberCardData {
   id: string;
@@ -13,23 +13,28 @@ export interface MemberCardData {
   imageUrl: string;
 }
 
-export async function fetchMembers(): Promise<MemberCardData[]> {
+export const fetchMembers = async (): Promise<MemberCardData[]> => {
   try {
     const dbPartners = await db.partner.findMany({
       include: { user: true },
     });
 
-    return dbPartners.map((partner) => ({
-      id: partner.id,
-      name: `${partner.user.firstName} ${partner.user.lastName}`,
-      vocation: partner.vocation, // Directly assign the vocation as a string
-      companyName: partner.companyName,
-      companySize: partner.companySize,
-      city: partner.city,
-      imageUrl: partner.user.imageUrl || '/default-avatar.png',
+    const members = dbPartners.map((partner: any) => ({
+      id: partner.id?.toString() || '',
+      name: `${partner.user?.firstName || ''} ${
+        partner.user?.lastName || ''
+      }`.trim(),
+      vocation: partner.vocation?.toString() || '',
+      companyName: partner.companyName?.toString() || '',
+      companySize: partner.companySize?.toString() || '',
+      city: partner.city?.toString() || '',
+      imageUrl: partner.user?.imageUrl?.toString() || '/default-avatar.png',
     }));
+
+    revalidatePath('/dashboard/memberdirectory');
+    return members;
   } catch (error) {
     console.error('Error fetching members:', error);
     throw new Error('Failed to fetch members');
   }
-}
+};

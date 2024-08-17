@@ -67,7 +67,7 @@ const MemberFilter: React.FC<FilterComponentProps> = ({
   );
 
   return (
-    <div className="p-4 my-2 rounded-sm border border-stroke bg-white px-5 pb-8 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-6">
+    <div className="p-4 my-2 min-h-40 rounded-sm border border-stroke bg-white px-5 pb-8 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-6">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div>
           <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
@@ -140,3 +140,9 @@ const MemberFilter: React.FC<FilterComponentProps> = ({
 };
 
 export default MemberFilter;
+
+// components/MemberFilter.tsx
+
+// components/MemberFilter.tsx
+
+// components/MemberFilter.tsx
