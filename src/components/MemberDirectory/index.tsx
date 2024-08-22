@@ -114,6 +114,7 @@ import Pagination from '@/components/Pagination';
 import { fetchMembers } from '@/lib/actions/member.actions'; // Adjust the import path accordingly
 import React, { useEffect, useState } from 'react';
 import Breadcrumb from '../Breadcrumbs/Breadcrumb';
+import Loader from '../common/Loader';
 
 interface MemberCardData {
   id: string;
@@ -130,6 +131,7 @@ const MemberDirectory: React.FC = () => {
   const [filteredMembers, setFilteredMembers] = useState<MemberCardData[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [membersPerPage] = useState(8);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -137,8 +139,10 @@ const MemberDirectory: React.FC = () => {
         const data = await fetchMembers();
         setInitialMembers(data);
         setFilteredMembers(data);
+        setLoading(false);
       } catch (error) {
         console.error('Failed to fetch members:', error);
+        setLoading(false);
       }
     }
 
@@ -174,6 +178,13 @@ const MemberDirectory: React.FC = () => {
   return (
     <div className="mx-auto max-w-7xl">
       <Breadcrumb pageName="Directory" />
+
+      {loading && (
+        <>
+          <Loader />
+        </>
+      )}
+
       <MemberFilter
         onFilterChange={handleFilterChange}
         allMembers={initialMembers}

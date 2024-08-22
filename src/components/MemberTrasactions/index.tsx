@@ -31,10 +31,10 @@ const MemberTransactionsDetails: React.FC = async () => {
   const role = clerkUser?.publicMetadata?.role as string;
   const transactions = await getDocuments(
     clerkUser.emailAddresses[0].emailAddress
+    
   );
 
-  console.log(transactions.data[0] + 'transactions');
-  console.log('here');
+ 
   return (
     <div className="col-span-12 xl:col-span-8">
       <div className="rounded-sm border border-stroke bg-white px-3 pb-1.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">

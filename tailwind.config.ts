@@ -297,6 +297,10 @@ const config: Config = {
         linspin: {
           '100%': { transform: 'rotate(360deg)' },
         },
+        'bounce-staggered': {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-25%)' },
+        },
         easespin: {
           '12.5%': { transform: 'rotate(135deg)' },
           '25%': { transform: 'rotate(270deg)' },
@@ -355,6 +359,9 @@ const config: Config = {
         line1: 'line 10s infinite linear',
         line2: 'line-revert 8s infinite linear',
         line3: 'line 7s infinite linear',
+        'bounce-staggered-1': 'bounce-staggered 1s ease-in-out infinite',
+        'bounce-staggered-2': 'bounce-staggered 1s ease-in-out 0.1s infinite',
+        'bounce-staggered-3': 'bounce-staggered 1s ease-in-out 0.2s infinite',
       },
     },
   },

@@ -68,7 +68,7 @@ export const getDocument = async ({
       // throw new Error('You cannot change access for  yourself ');
       throw new Error('You do not have access to this document');
     }
-
+    revalidatePath(`/dashboard/transactions/${roomId}`);
     return parseStringify(room);
   } catch (error) {
     console.log(`Error happened while getting a room: ${error}`);
