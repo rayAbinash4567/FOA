@@ -328,7 +328,7 @@ const MemberProfile: React.FC = () => {
       </div>
 
       {/* Marketing Options */}
-      <div className="mt-6.5">
+      {/* <div className="mt-6.5">
         <div className="rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
           <h4 className="mb-3 font-semibold text-black dark:text-white">
             Marketing Options
@@ -344,10 +344,10 @@ const MemberProfile: React.FC = () => {
             ))}
           </ul>
         </div>
-      </div>
+      </div> */}
 
       {/* Networking Options */}
-      <div className="mt-6.5">
+      {/* <div className="mt-6.5">
         <div className="rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
           <h4 className="mb-3 font-semibold text-black dark:text-white">
             Networking Options
@@ -363,10 +363,10 @@ const MemberProfile: React.FC = () => {
             ))}
           </ul>
         </div>
-      </div>
+      </div> */}
 
       {/* Additional Info Fields */}
-      <div className="mt-6.5">
+      {/* <div className="mt-6.5">
         <div className="rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
           <h4 className="mb-3 font-semibold text-black dark:text-white">
             Additional Information
@@ -379,10 +379,10 @@ const MemberProfile: React.FC = () => {
             )
           )}
         </div>
-      </div>
+      </div> */}
 
       {/* Additional Marketing Info Fields */}
-      <div className="mt-6.5">
+      {/* <div className="mt-6.5">
         <div className="rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
           <h4 className="mb-3 font-semibold text-black dark:text-white">
             Additional Marketing Information
@@ -395,11 +395,11 @@ const MemberProfile: React.FC = () => {
             )
           )}
         </div>
-      </div>
+      </div> */}
 
       {/* Additional Social Media Info Fields */}
       <div className="mt-6.5">
-        <div className="rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
+        {/* <div className="rounded-sm border border-stroke bg-white p-4 shadow-default dark:border-strokedark dark:bg-boxdark">
           <h4 className="mb-3 font-semibold text-black dark:text-white">
             Additional Social Media Information
           </h4>
@@ -410,7 +410,7 @@ const MemberProfile: React.FC = () => {
               </p>
             )
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );
