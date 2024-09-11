@@ -1,5 +1,6 @@
 'use client';
 import { useUser } from '@clerk/nextjs';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Loader from '../common/Loader';
 
@@ -83,6 +84,21 @@ const MemberApplicationVieworUpdate = () => {
         Your Application Details
       </h4>
 
+      <h2 className="text-m py-4 font-semibold text-black dark:text-white">
+        Once you are approved, you will be able to access the Partner Central
+        which will give you access to create your own transaction and manage
+        your own leads.
+      </h2>
+
+      <h3 className="py-4 text-black">
+        {' '}
+        For any correction to form or any other inquiry please contact{' '}
+        <span className="text-primary">
+          <Link href="mailto:engage@pinnaclepartnerships.com">
+            engage@pinnaclepartnerships.com
+          </Link>
+        </span>{' '}
+      </h3>
       <div className="flex flex-col">
         <div className="grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-5">
           <div className="p-2.5 xl:p-5">

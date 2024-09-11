@@ -336,13 +336,20 @@ export default function Form() {
       <div className="mx-auto max-w-5xl ">
         <Breadcrumb pageName="Member Application Form" />
         <section className="py-8 inset-0 flex flex-col justify-between p-24 m-2 w-full px-8 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-          <h2 className="text-xl font-bold pt-4">
-            Application Submitted for review
+          <h2 className="text-xl text-black dark:text-white font-bold pt-4">
+            Application Submitted for{' '}
+            <span className="text-primary">Review</span>
           </h2>
-          <h2 className="font-medium py-8">
+          <h2 className="font-medium py-4 text-black dark:text-white">
+            Once you are approved, you will be able to access the Partner
+            Central which will give you access to create your own transaction
+            and manage your own leads.
+          </h2>
+          <h2 className="font-medium py-4">
             You have already submitted your application. You can view your
             submitted application below.
           </h2>
+
           <div className="mb-7.5 flex flex-wrap gap-5 xl:gap-7.5">
             <Link
               href={`/dashboard/memberapplication/submitted`}
