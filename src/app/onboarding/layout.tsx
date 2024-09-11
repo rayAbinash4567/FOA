@@ -11,7 +11,6 @@ export default function BrowseLayout({
   children,
 }: {
   children: React.ReactNode;
-  isFullWidth?: boolean | null;
 }) {
   const [colorMode] = useColorMode();
 
