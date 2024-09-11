@@ -9,20 +9,11 @@ import lightthemeImage from '../../../public/images/logo/pp_mainlogo.png';
 
 export default function BrowseLayout({
   children,
-  isFullWidth = false,
 }: {
   children: React.ReactNode;
   isFullWidth?: boolean | null;
 }) {
   const [colorMode] = useColorMode();
-
-  if (isFullWidth) {
-    return (
-      <div className="min-h-screen w-full p-4 sm:p-12.5 xl:p-17.5 bg-white dark:bg-boxdark">
-        {children}
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen flex justify-center items-center rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
